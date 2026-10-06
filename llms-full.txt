@@ -1,0 +1,623 @@
+# Meaconing explained (meaconing.com)
+
+Source: https://meaconing.com/ · Last reviewed: 6 October 2026 · Audience: beginners, drone operators, aviation and security professionals
+Sister site with the full GNSS threat overview and data: https://gnssdenial.com/
+
+Meaconing explained for everyone
+
+# Meaconing: your navigation hears an echo and believes it.
+
+Say it: **MEE-kuh-ning** · from "masking beacon"
+
+Meaconing means capturing real satellite navigation signals and playing them back from somewhere else. A GPS receiver hears the replay, trusts it, and calculates the wrong position. Every built-in check still says the position is correct.
+
+This site explains it from zero. No prior knowledge needed.
+
+## Satellite navigation is under attack. _Every day._
+
+1,500
+
+commercial flights a day were being fed fake GPS signals by August 2024.
+
+OPSGROUP, 2024
+
+41,000
+
+flights spoofed in a single month, mid-July to mid-August 2024.
+
+OPSGROUP, 2024
+
+970
+
+ships a day had GPS jammed in the Gulf and Strait of Hormuz in June 2025.
+
+Windward, 2025
+
+10,000
+
+drones a month lost by Ukraine in 2023, mostly to electronic warfare.
+
+RUSI, 2023
+
+Start here · GNSS in 60 seconds
+
+## How your GPS knows where you are
+
+**GNSS** (Global Navigation Satellite System) is the family name for GPS and its cousins: Europe's Galileo, Russia's GLONASS and China's BeiDou. Together they have well over 100 satellites in orbit.
+
+Each satellite carries an atomic clock and keeps broadcasting one simple message: _"This is satellite 12. The time is exactly this. I am exactly here."_
+
+Your receiver notes how late each message arrives. Radio travels at the speed of light, about 300 km every thousandth of a second, so a delay converts into a distance. With distances to several satellites, the receiver works out where it is.
+
+One detail matters for everything on this site. The receiver's own clock is cheap and inaccurate, so it needs a **fourth satellite** just to work out its own clock error. Remember that. It is exactly the gap that meaconing slips through.
+
+**≈ 20,200 km**
+
+Altitude of GPS satellites. The signal spends about 0.07 seconds travelling to you.
+
+**300 m**
+
+Distance error caused by a timing error of just one millionth of a second.
+
+**Below noise**
+
+By the time it reaches Earth, the signal is weaker than the background radio noise around it.
+
+Every way GNSS can fail · the short version
+
+## Eight things that break satellite navigation
+
+A signal this faint is easy to drown, fake, copy or block. Meaconing is one threat among several. Here is each in a sentence, with an everyday comparison and whether you would notice it.
+
+__You notice
+
+### Jamming
+
+A transmitter blasts noise on GNSS frequencies so the receiver hears nothing at all.
+
+Like someone shouting over a whisper.
+
+__Hard to notice
+
+### Spoofing
+
+A transmitter fakes satellite signals and gradually walks the receiver to a false position or time.
+
+Like a forged letter in a convincing envelope.
+
+__Hardest to notice
+
+### Meaconing
+
+An attacker records real satellite signals and replays them. The content is genuine, so it passes authenticity checks.
+
+Like a recording of your friend's real voice, played from the wrong room.
+
+Deep dive below ↓ __You notice
+
+### Blockage
+
+Tunnels, buildings, forests and roofs cut the line of sight to the satellites.
+
+Like losing phone signal in a lift.
+
+__Sometimes
+
+### Multipath
+
+Signals bounce off glass and concrete, so the receiver measures the wrong distances. Common in city "canyons".
+
+Like an echo off a cliff confusing which way a sound came from.
+
+__Sometimes
+
+### Space weather
+
+Solar storms disturb the upper atmosphere and make signals flicker or fade, especially near the poles and equator.
+
+Like heat haze bending what you see.
+
+__Sometimes
+
+### System faults
+
+The satellite systems themselves can fail. Galileo's public service was down for about six days in July 2019.
+
+Like a power cut at the source.
+
+__Sometimes
+
+### Accidental interference
+
+Faulty electronics and illegal in-vehicle "privacy jammers" leak noise onto GNSS bands, sometimes near airports.
+
+Like a neighbour's broken radio humming through the wall.
+
+Want the full picture of every GNSS threat, with incident data from aviation and shipping? Visit our sister site [gnssdenial.com](https://gnssdenial.com).
+
+Meaconing deep dive
+
+## The attack that tells the truth, at the wrong time and place
+
+### Spoofing forges. Meaconing copies.
+
+A spoofer has to build fake satellite signals from scratch. That takes skill, and the result can contain small mistakes that a careful receiver might catch.
+
+A meaconer doesn't make anything up. It listens to the real satellites with one antenna and re-transmits what it hears from another, a little louder. The messages, codes and digital signatures are all authentic, because they _are_ the real thing.
+
+The only false part is **where and when** the signal is coming from. A receiver locked onto the copy computes the position of the attacker's listening antenna, not its own.
+
+What the receiver gets| Real sky| Spoofing| Meaconing  
+---|---|---|---  
+Signal origin| Satellites| Attacker's generator| Satellites, re-sent by attacker  
+Message content| Genuine| Forged| Genuine  
+Digital signature| Valid| Fails, if checked| Valid  
+Satellites agree?| Yes| Usually| Yes  
+Position computed| Your own| Attacker's choice| Attacker's antenna  
+Skill needed| None| High| Low to moderate  
+  
+### An old trick from the Second World War
+
+In 1940 and 1941, German bombers found their way over Britain at night using radio beacons. Britain's No. 80 (Signals) Wing of the Royal Air Force answered with "masking beacons", or **meacons**. Stations in England picked up the German beacon signals and re-radiated them from British soil.
+
+A navigator taking a bearing on what sounded like his own beacon was pointed somewhere else. Accounts from the period describe German aircraft getting lost, and some landing at British airfields by mistake.
+
+Eighty years later the principle is the same. The beacons are now satellites, and the navigator is often a computer with no window to look out of.
+
+### Three ways to meacon
+
+Live relay
+
+### The repeater
+
+One antenna receives the sky, another re-transmits it a few microseconds later. Cheap repeaters sold to bring GPS indoors work exactly this way, which is why using them without authorisation is restricted.
+
+**Result:** victims nearby compute the receiving antenna's position.
+
+Record and replay
+
+### The recording
+
+The attacker records raw signals at one place and time, then plays them back later. If the recording was made on a moving vehicle, the replay produces a smooth, believable path.
+
+**Result:** victims relive someone else's journey, at the wrong time.
+
+Long-distance relay
+
+### The tunnel
+
+Signals captured in one city are streamed over the internet and re-broadcast in another. Research shows this can even re-create authenticated messages at the far end.
+
+**Result:** victims compute a position hundreds of kilometres away.
+
+### Why the receiver believes it
+
+### The data is genuine
+
+Every navigation message really did come from a satellite. There is nothing false inside the signal to find.
+
+### The signatures check out
+
+Authentication such as Galileo's OSNMA proves a message came from a satellite. A copy of that message did. In field tests, OSNMA receivers reported meaconed signals as authentic.
+
+### All satellites agree
+
+Integrity checks such as RAIM look for one satellite that disagrees with the others. In meaconing they all arrive through the same relay, so they agree perfectly.
+
+### Louder wins
+
+Receivers lock onto the strongest matching signal. The real one is fainter than background noise, so the copy only needs a modest boost.
+
+### The delay hides in the clock
+
+Remember the fourth satellite that fixes the receiver's clock? The relay adds the same extra delay to every satellite. To the receiver, that looks exactly like its own clock running slightly late. It quietly corrects "its clock" and reports a clean fix.
+
+The extra delay never shows up as an error. The position simply becomes the attacker's antenna, and the time becomes slightly wrong.
+
+Why it's so hard to detect · in real time
+
+## Inside a meaconing incident, second by second
+
+After the event, analysts can often reconstruct a meaconing attack from logs. The hard part is catching it while it happens, from inside the aircraft, with only the receiver's own view. Here is what a drone and its ground station experience.
+
+  1. T+0 s
+
+**Normal flight**
+
+The drone navigates by GNSS on a survey line. Everything is genuinely fine.
+
+  2. T+4 s
+
+**Meaconer switches on**
+
+A relay on a hilltop 2 km away starts re-sending the sky at low power. Nothing visible changes yet.
+
+  3. T+10 s
+
+**Power creeps up**
+
+The copy rises gently above the real signal. Signal-strength readings move a little, within normal flight variation.
+
+  4. T+14 s
+
+**Capture**
+
+The receiver's tracking slides from the real signal to the copy. Its clock estimate jumps by a few microseconds, and the clock filter smooths that over.
+
+  5. T+20 s
+
+**Wrong position, clean fix**
+
+The receiver now reports the hilltop. Eleven satellites, valid signatures, integrity check passed.
+
+  6. T+45 s
+
+**The autopilot "corrects"**
+
+It believes it has drifted 2 km and steers to fix an error that doesn't exist, flying away from its real route.
+
+  7. T+3 min
+
+**Failsafe makes it worse**
+
+Return-to-home and geofencing both rely on the same false position. The drone heads for a "home" computed from the attacker's location.
+
+Ground station display at T+20 s
+
+GNSS fix3D ✓
+
+Satellites in use11 ✓
+
+Position dilution (HDOP)0.8 ✓
+
+OSNMA authenticationPASS ✓
+
+RAIM integrityPASS ✓
+
+MapPlausible ✓
+
+**Reality:** the drone is 2 km from where every indicator says it is. The operator may be kilometres away, watching a screen that looks normal.
+
+### Which checks catch meaconing as it happens?
+
+Most anti-spoofing tools were designed to catch forged signals. Against a genuine signal replayed, most of them have little to grab onto.
+
+Check| How it works| Catches meaconing in real time?  
+---|---|---  
+Integrity monitoring (RAIM)| Flags a satellite that disagrees with the rest.| __No. All satellites arrive through the same relay and agree.  
+Signal authentication (OSNMA, Chimera)| Verifies a cryptographic signature in the message.| __No. The signatures are real.  
+Multi-constellation, multi-frequency| Compares GPS, Galileo, BeiDou and several bands.| __Partly. A wideband relay copies every band at once.  
+Signal-strength monitoring| Watches for signals that are suspiciously strong.| __Sometimes. A careful attacker keeps power close to normal.  
+Clock-jump monitoring| Watches for sudden steps in the receiver's clock.| __Sometimes. A gradual takeover hides inside normal clock noise.  
+Direction finding (antenna arrays)| Detects that every signal comes from one direction.| __Often. Heavy, costly and rare on small drones.  
+Inertial sensors only| Compares GNSS with measured motion.| __Sometimes. Small-drone sensors drift quickly and get pulled along by the GNSS.  
+Independent absolute navigation| Compares GNSS with terrain, imagery and inertial motion.| __Yes. The terrain below doesn't match the reported position.  
+  
+### Tell-tale signs for operators
+
+**Position stuck in place**
+
+GNSS reports almost no movement while airspeed and motor data say the vehicle is flying.
+
+**A suspiciously fixed location**
+
+Several vehicles report the same point, often a hilltop, building or vessel.
+
+**Small clock or time jumps**
+
+The receiver's time steps by microseconds, or log timestamps don't match other systems.
+
+**Every satellite equally strong**
+
+Real satellites vary with elevation. A relay makes them look similar.
+
+**Map vs camera mismatch**
+
+The video feed shows a road or coastline that shouldn't be there.
+
+**Failsafes acting oddly**
+
+Geofence alarms, or return-to-home heading in an unexpected direction.
+
+Crewed aircraft vs autonomous platforms
+
+## Piloted aircraft cope with skill, and lots of backup
+
+Crewed aircraft meet GNSS interference every day and keep flying safely. They have trained people on board, layers of independent instruments, ground infrastructure and air traffic control behind them.
+
+**Wide-body airliners**
+
+Long-haul twin-aisle jets carrying roughly 250 to 500+ passengers across oceans and continents.
+
+**Narrow-body airliners**
+
+Single-aisle jets for short and medium routes, roughly 120 to 240 seats. Most of the world's flights.
+
+**Regional jets and turboprops**
+
+Smaller airliners linking regional airports, often at lower altitudes.
+
+**Business jets**
+
+Private and corporate aircraft flying the same airspace with airline-grade avionics.
+
+**Helicopters**
+
+Offshore transport, air ambulance, search and rescue, police and utility work.
+
+**Military transports and tankers**
+
+Large crewed aircraft that routinely fly near conflict zones.
+
+**General aviation**
+
+Light piston aircraft and training flights. They have fewer backups, but a pilot who can look outside.
+
+**Crewed special missions**
+
+Patrol, surveillance and calibration aircraft with mission crews and extra sensors.
+
+**Human instinct and judgement**
+
+Two trained pilots who notice when something doesn't add up: "The screen says we're over the sea, but the coast is right there."
+
+**Inertial reference systems**
+
+Airliners carry high-grade inertial systems. Modern units drift about 0.6 nautical miles per hour without any satellite help.
+
+**Ground radio aids**
+
+VOR, DME and ILS stations give position and approach guidance that don't depend on satellites.
+
+**Air traffic control radar**
+
+Controllers see the aircraft on radar and can give headings and warnings.
+
+**Procedures and training**
+
+Industry and regulator guidance, briefings on known hotspots, and checklists for GNSS loss.
+
+**A window**
+
+Coastlines, runways and cities give an instant reality check in good weather.
+
+But how does your autonomous platform handle it?
+
+Layer of protection| Crewed aircraft| Typical autonomous drone  
+---|---|---  
+Who notices?| Pilots on board, cross-checking constantly| Nobody on board. An operator, if any, watches a plausible-looking map from far away.  
+Backup position| Navigation-grade inertial systems| Small, low-cost motion sensors that drift quickly without correction  
+Ground radio aids| VOR, DME and ILS along routes and at airports| Usually none, and few reach low altitudes or remote areas  
+Outside help| Air traffic control and radar| Often beyond controlled airspace and radar cover  
+Reaction| Judgement, procedures, diversion| Autopilot logic that trusts GNSS by design  
+Failsafe| Crew decides where to go| Return-to-home steers by the same corrupted position  
+Against meaconing| Humans spot implausible positions| Every automated check passes, so the drone carries on  
+  
+Drones are already being lost to this in large numbers. In 2023 the Royal United Services Institute estimated Ukraine was losing about 10,000 drones a month, mostly to electronic warfare that targets navigation and control links.
+
+### Every class of drone is exposed, from hand-launched to MALE
+
+Military and civil operators often group uncrewed aircraft by size using NATO's classes. All of them rely on GNSS, and the larger they are, the more is at stake when it lies.
+
+Class I · micro**Micro** under 2 kg
+
+Quadcopters for inspection, filming and short-range scouting.
+
+Class I · mini**Mini** 2–20 kg
+
+Survey, mapping, delivery trials and hand-launched reconnaissance.
+
+Class I · small**Small** 20–150 kg
+
+Long-range fixed-wing and VTOL survey, border and pipeline patrol.
+
+Class II**Tactical** 150–600 kg
+
+Runway or catapult launched, many hours aloft for surveillance.
+
+Class III**MALE** over 600 kg
+
+Medium-altitude, long-endurance aircraft flying for a day or more.
+
+Navion Terra covers _micro to MALE_
+
+The solution · Ultrakinematic
+
+## Navion Terra: navigation that can't be fooled by an echo.
+
+Meaconing proofAnti-spoofingAnti-jammingGNSS-independent
+
+Navion Terra is a resilient navigation system for drone operations at any scale, from small multirotors up to the MALE segment. It combines inertial, visual and terrain-referenced navigation, so a drone always knows where it is, even when satellite signals are jammed, faked or replayed.
+
+Conventional anti-spoofing asks"Is this signal genuine?"
+
+Against meaconing the answer is "yes", so the attack gets through.
+
+Navion Terra asks"Does this position match the world below me?"
+
+A replayed signal can fool a receiver. It can't move the hills, roads and coastlines under the drone.
+
+  1. **Detect**
+
+Continuously compares the GNSS position with terrain matches, camera views and the drone's own measured motion. In the incident above, the mismatch shows up as soon as the reported position leaves the real one.
+
+  2. **Reject**
+
+Lowers the weight of, or completely rejects, the untrustworthy GNSS before it can pull the solution off course.
+
+  3. **Navigate**
+
+Keeps an absolute position from terrain referencing and scene matching, at night, above cloud and in rain, while inertial and visual odometry fill the gaps.
+
+  4. **Report**
+
+Tells the autopilot and operator exactly how far to trust the position, and which sources are healthy, deweighted or rejected.
+
+`INS`**Inertial measurement**
+
+High-rate motion from accelerometers and gyroscopes.
+
+`VIO`**Visual odometry**
+
+Camera tracking of the ground that limits drift.
+
+`TRN`**Terrain referencing**
+
+Radar-altimeter height profiles matched to elevation maps for absolute position.
+
+`SCN`**Scene matching**
+
+Camera images matched to georeferenced satellite imagery.
+
+`INT`**Integrity monitoring**
+
+Scores every source and blocks anomalous ones before fusion.
+
+`GNSS`**Satellites, on probation**
+
+Used only while it agrees with everything else.
+
+Board mass**90 g**
+
+Peak power**20 W**
+
+Output rate**100–250 Hz**
+
+Outputs**Position · velocity · attitude · confidence**
+
+Sensors**Camera · radar altimeter · IMU · GNSS**
+
+Interfaces**Ethernet · CAN · UART · USB**
+
+Formats**NMEA · MAVLink · SDK**
+
+Kits**Development · Fly-ready**
+
+At 90 g and 20 W it fits small airframes. Standard interfaces and NMEA or MAVLink output let it plug into common autopilots and the mission computers of larger tactical and MALE platforms. Night, cloud and rain operation relies on the terrain-referenced path with suitable elevation data for the area.
+
+### Protect your drone operations
+
+Request a technical briefing on Navion Terra from Ultrakinematic.
+
+`contact@ultrakinematic.com`Copy email[ultrakinematic.com](https://ultrakinematic.com)
+
+Frequently asked questions
+
+## Meaconing questions, plainly answered
+
+### What is meaconing in simple terms?
+
+Meaconing is recording or capturing real satellite navigation signals and re-broadcasting them. A receiver that listens to the copy calculates the position of the attacker's antenna instead of its own, while believing the result is correct.
+
+### How do you pronounce meaconing?
+
+MEE-kuh-ning. The word comes from "meacon", short for "masking beacon".
+
+### Where does the word meaconing come from?
+
+From the Second World War. In 1940–41 the Royal Air Force's No. 80 (Signals) Wing used "masking beacons" that picked up German navigation beacon signals and re-radiated them from Britain to mislead Luftwaffe bombers.
+
+### Is meaconing the same as GPS spoofing?
+
+It is a type of spoofing, but a special one. Ordinary spoofing creates fake signals. Meaconing re-sends genuine ones. That is why it passes authenticity checks that can reveal ordinary spoofing.
+
+### Why doesn't signal authentication like OSNMA stop meaconing?
+
+Authentication proves a message came from a real satellite. A replayed message did come from a real satellite. Tests have shown OSNMA-enabled receivers reporting meaconed signals as authentic.
+
+### Why doesn't the relay delay show up as an error?
+
+The relay adds the same delay to every satellite's signal. A receiver already solves for its own clock error, so it treats the delay as its clock running late and reports a clean position fix.
+
+### How far off can meaconing put a drone?
+
+With a live relay, the drone's reported position becomes the attacker's receiving antenna. The error equals the distance between the drone and that antenna, from metres to kilometres. With record-and-replay or long-distance relay it can be hundreds of kilometres.
+
+### Can meaconing be detected in real time?
+
+It is very hard with GNSS checks alone, because the signals are genuine and consistent. Clues like clock jumps or uniform signal strength can be hidden by a careful attacker. The reliable method is comparing GNSS with independent absolute navigation such as terrain referencing and scene matching.
+
+### Are drones more at risk than airliners?
+
+Yes. Airliners have trained pilots, navigation-grade inertial systems, ground radio aids and air traffic control. Most drones rely on GNSS as their only absolute position, have no one on board, and run autopilots and failsafes that trust GNSS.
+
+### Is meaconing illegal?
+
+In most countries, transmitting on GNSS frequencies without authorisation is illegal, and GNSS repeaters are tightly regulated. Most large-scale interference today is attributed to military electronic warfare.
+
+### How can drone operators protect against meaconing?
+
+Fit navigation that does not depend on GNSS for absolute position, cross-check GNSS against it, avoid relying on GNSS alone for return-to-home and geofencing, and log receiver data so incidents can be analysed.
+
+### What is Navion Terra?
+
+Navion Terra by Ultrakinematic is a resilient navigation system for drones from small multirotors up to the MALE class. It fuses inertial, visual, scene-matching and terrain-referenced navigation, rejects jammed, spoofed or meaconed GNSS, and outputs position with a confidence estimate at 100–250 Hz.
+
+Glossary
+
+## Words you'll meet
+
+Global Navigation Satellite SystemGNSS
+    The family of satellite navigation systems: GPS, Galileo, GLONASS and BeiDou.
+
+Receiver
+    The chip in a phone, car, drone or aircraft that listens to satellites and calculates position and time.
+
+Clock error
+    How far the receiver's cheap clock is off. Solved using a fourth satellite, and where meaconing's delay hides.
+
+Meaconing
+    Capturing genuine GNSS signals and re-broadcasting them to mislead receivers.
+
+Meaconer
+    The equipment that performs meaconing: a receiving antenna, an amplifier and a transmitting antenna.
+
+Replay attack
+    Recording signals and playing them back later. A form of meaconing.
+
+Spoofing
+    Broadcasting fake GNSS signals to make a receiver report a false position or time.
+
+Jamming
+    Broadcasting noise on GNSS frequencies so receivers cannot hear satellites.
+
+Navigation Message AuthenticationOSNMA
+    Galileo's digital signature for its open signal. Stops forged messages, not copied ones.
+
+Receiver Autonomous Integrity MonitoringRAIM
+    A receiver check that spots one satellite disagreeing with the others.
+
+Inertial Measurement UnitIMU
+    Accelerometers and gyroscopes that measure motion. Can't be jammed, but drift over time.
+
+Terrain-Referenced NavigationTRN
+    Finding position by matching measured ground height to an elevation map.
+
+Scene matching
+    Finding position by matching camera images to satellite imagery.
+
+Medium Altitude Long EnduranceMALE
+    Large uncrewed aircraft flying at medium altitude for a day or more. NATO Class III.
+
+Return-to-homeRTH
+    A drone failsafe that flies back to the launch point, usually guided by GNSS.
+
+Page last reviewed 6 October 2026.
+
+## Sources
+
+  1. [OPSGROUP, GPS Spoofing Workgroup Final Report (2024)](https://ops.group/dashboard/wp-content/uploads/2024/09/GPS-Spoofing-Final-Report-OPSGROUP-WG-OG24.pdf)
+  2. [Windward, 970 ships daily (June 2025)](https://windward.ai/blog/middle-east-on-the-precipice-gps-jamming-in-the-arabian-gulf-and-strait-of-hormuz-disrupts-970-ships-daily/)
+  3. [Forbes on RUSI "Meatgrinder" report: 10,000 drones a month (2023)](https://www.forbes.com/sites/davidhambling/2023/05/22/ukraine-drones-losses-are-10000-per-month/)
+  4. [Unmanned Airspace, Ukrainian drone losses (RUSI)](https://www.unmannedairspace.info/counter-uas-systems-and-policies/ukrainian-drone-losses-at-10000-a-month-new-research-from-rusi/)
+  5. [SKYbrary, Inertial Reference System](https://skybrary.aero/articles/inertial-reference-system-irs)
+  6. [IATA, Safety risk assessment: GNSS interference](https://ic.iata.org/sites/default/files/iata_sih_document_attachment/IATA%20Safety%20Risk%20Assessment%20-%20GNSS%20Interference%20V5.pdf)
+  7. [Stanford GPS Lab, Conventional navigation aids](https://web.stanford.edu/group/scpnt/gpslab/pubs/books/Chapter3ConventionalNavigation.pdf)
+  8. [Inside GNSS, OSNMA: necessary but not sufficient](https://insidegnss.com/osnma-necessary-but-not-sufficient-for-gnss-security/)
+  9. [NAVIGATION (ION), Multipath situation under meaconing](https://navi.ion.org/content/73/1/navi.738)
+  10. [arXiv, Distributed and mobile message-level relaying of GNSS signals](https://arxiv.org/pdf/2202.11341)
+  11. [Detecting meaconing attacks by analysing receiver clock bias](https://www.researchgate.net/publication/265008517_Detecting_Meaconing_Attacks_by_Analysing_the_Clock_Bias_of_Gnss_Receivers)
+  12. [Sensors, Machine learning spoofing detection on real meaconing data](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7070933/)
+  13. [SBG Systems, Meaconing glossary](https://www.sbg-systems.com/glossary/meaconing/)
+  14. [Ultrakinematic, Navion Terra](https://ultrakinematic.com)
+  15. [gnssdenial.com, full GNSS threat overview and data](https://gnssdenial.com)

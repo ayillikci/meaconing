@@ -1,0 +1,1299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meaconing Explained: GNSS Replay Attacks and Why They&#x27;re Hard to Detect</title>
+<meta name="description" content="Meaconing explained from zero: how GNSS signals are captured and replayed, why replay attacks pass authentication and integrity checks, how crewed aircraft cope, and how drones up to MALE class stay on course with Navion Terra.">
+<link rel="canonical" href="https://meaconing.com/">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="author" content="meaconing.com">
+<meta name="keywords" content="meaconing, meacon, GNSS replay attack, GPS replay attack, GPS spoofing, GPS jamming, OSNMA meaconing, detect meaconing, drone GPS spoofing, GNSS-denied navigation, MALE UAV navigation, Navion Terra">
+<meta name="theme-color" content="#f4f5fa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c0f2b" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="meaconing.com">
+<meta property="og:title" content="Meaconing explained: when your navigation hears an echo and believes it">
+<meta property="og:description" content="Meaconing explained from zero: how GNSS signals are captured and replayed, why replay attacks pass authentication and integrity checks, how crewed aircraft cope, and how drones up to MALE class stay on course with Navion Terra.">
+<meta property="og:url" content="https://meaconing.com/">
+<meta property="og:image" content="https://meaconing.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Satellite navigation is under attack. Every day. Meaconing explained at meaconing.com">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-10-06">
+<meta property="article:modified_time" content="2026-10-06">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Meaconing explained: when your navigation hears an echo and believes it">
+<meta name="twitter:description" content="Meaconing explained from zero: how GNSS signals are captured and replayed, why replay attacks pass authentication and integrity checks, how crewed aircraft cope, and how drones up to MALE class stay on course with Navion Terra.">
+<meta name="twitter:image" content="https://meaconing.com/og-image.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="alternate" type="text/markdown" title="LLM-readable version" href="/llms-full.txt">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebSite",
+   "@id": "https://meaconing.com/#website",
+   "url": "https://meaconing.com/",
+   "name": "meaconing.com",
+   "alternateName": "Meaconing explained",
+   "description": "Meaconing explained from zero: how GNSS signals are captured and replayed, why replay attacks pass authentication and integrity checks, how crewed aircraft cope, and how drones up to MALE class stay on course with Navion Terra.",
+   "inLanguage": "en",
+   "publisher": {
+    "@id": "https://meaconing.com/#org"
+   }
+  },
+  {
+   "@type": "Organization",
+   "@id": "https://meaconing.com/#org",
+   "name": "meaconing.com",
+   "url": "https://meaconing.com/",
+   "logo": "https://meaconing.com/icon-512.png",
+   "sameAs": [
+    "https://gnssdenial.com/"
+   ]
+  },
+  {
+   "@type": "TechArticle",
+   "@id": "https://meaconing.com/#article",
+   "headline": "Meaconing: your navigation hears an echo and believes it",
+   "alternativeHeadline": "Meaconing explained from zero: GNSS replay attacks and how to defend against them",
+   "description": "Meaconing explained from zero: how GNSS signals are captured and replayed, why replay attacks pass authentication and integrity checks, how crewed aircraft cope, and how drones up to MALE class stay on course with Navion Terra.",
+   "url": "https://meaconing.com/",
+   "mainEntityOfPage": "https://meaconing.com/",
+   "inLanguage": "en",
+   "datePublished": "2026-10-06",
+   "dateModified": "2026-10-06",
+   "image": "https://meaconing.com/og-image.png",
+   "author": {
+    "@id": "https://meaconing.com/#org"
+   },
+   "publisher": {
+    "@id": "https://meaconing.com/#org"
+   },
+   "isPartOf": {
+    "@id": "https://meaconing.com/#website"
+   },
+   "proficiencyLevel": "Beginner",
+   "keywords": "meaconing, meacon, GNSS replay attack, GPS replay attack, GPS spoofing, GPS jamming, OSNMA meaconing, detect meaconing, drone GPS spoofing, GNSS-denied navigation, MALE UAV navigation, Navion Terra",
+   "about": [
+    {
+     "@id": "https://meaconing.com/#term-meaconing"
+    },
+    {
+     "@id": "https://meaconing.com/#term-replay-attack"
+    },
+    {
+     "@id": "https://meaconing.com/#term-spoofing"
+    }
+   ],
+   "mentions": [
+    {
+     "@id": "https://meaconing.com/#navion-terra"
+    }
+   ],
+   "relatedLink": [
+    "https://gnssdenial.com/"
+   ],
+   "citation": [
+    "https://ops.group/dashboard/wp-content/uploads/2024/09/GPS-Spoofing-Final-Report-OPSGROUP-WG-OG24.pdf",
+    "https://windward.ai/blog/middle-east-on-the-precipice-gps-jamming-in-the-arabian-gulf-and-strait-of-hormuz-disrupts-970-ships-daily/",
+    "https://www.forbes.com/sites/davidhambling/2023/05/22/ukraine-drones-losses-are-10000-per-month/",
+    "https://www.unmannedairspace.info/counter-uas-systems-and-policies/ukrainian-drone-losses-at-10000-a-month-new-research-from-rusi/",
+    "https://skybrary.aero/articles/inertial-reference-system-irs",
+    "https://ic.iata.org/sites/default/files/iata_sih_document_attachment/IATA%20Safety%20Risk%20Assessment%20-%20GNSS%20Interference%20V5.pdf",
+    "https://web.stanford.edu/group/scpnt/gpslab/pubs/books/Chapter3ConventionalNavigation.pdf",
+    "https://insidegnss.com/osnma-necessary-but-not-sufficient-for-gnss-security/",
+    "https://navi.ion.org/content/73/1/navi.738",
+    "https://arxiv.org/pdf/2202.11341",
+    "https://www.researchgate.net/publication/265008517_Detecting_Meaconing_Attacks_by_Analysing_the_Clock_Bias_of_Gnss_Receivers",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7070933/",
+    "https://www.sbg-systems.com/glossary/meaconing/",
+    "https://ultrakinematic.com",
+    "https://gnssdenial.com"
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://meaconing.com/#faq",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What is meaconing in simple terms?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Meaconing is recording or capturing real satellite navigation signals and re-broadcasting them. A receiver that listens to the copy calculates the position of the attacker's antenna instead of its own, while believing the result is correct."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do you pronounce meaconing?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "MEE-kuh-ning. The word comes from \"meacon\", short for \"masking beacon\"."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Where does the word meaconing come from?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "From the Second World War. In 1940–41 the Royal Air Force's No. 80 (Signals) Wing used \"masking beacons\" that picked up German navigation beacon signals and re-radiated them from Britain to mislead Luftwaffe bombers."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is meaconing the same as GPS spoofing?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It is a type of spoofing, but a special one. Ordinary spoofing creates fake signals. Meaconing re-sends genuine ones. That is why it passes authenticity checks that can reveal ordinary spoofing."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why doesn't signal authentication like OSNMA stop meaconing?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Authentication proves a message came from a real satellite. A replayed message did come from a real satellite. Tests have shown OSNMA-enabled receivers reporting meaconed signals as authentic."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why doesn't the relay delay show up as an error?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The relay adds the same delay to every satellite's signal. A receiver already solves for its own clock error, so it treats the delay as its clock running late and reports a clean position fix."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How far off can meaconing put a drone?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "With a live relay, the drone's reported position becomes the attacker's receiving antenna. The error equals the distance between the drone and that antenna, from metres to kilometres. With record-and-replay or long-distance relay it can be hundreds of kilometres."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can meaconing be detected in real time?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It is very hard with GNSS checks alone, because the signals are genuine and consistent. Clues like clock jumps or uniform signal strength can be hidden by a careful attacker. The reliable method is comparing GNSS with independent absolute navigation such as terrain referencing and scene matching."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Are drones more at risk than airliners?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. Airliners have trained pilots, navigation-grade inertial systems, ground radio aids and air traffic control. Most drones rely on GNSS as their only absolute position, have no one on board, and run autopilots and failsafes that trust GNSS."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is meaconing illegal?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "In most countries, transmitting on GNSS frequencies without authorisation is illegal, and GNSS repeaters are tightly regulated. Most large-scale interference today is attributed to military electronic warfare."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How can drone operators protect against meaconing?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Fit navigation that does not depend on GNSS for absolute position, cross-check GNSS against it, avoid relying on GNSS alone for return-to-home and geofencing, and log receiver data so incidents can be analysed."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is Navion Terra?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Navion Terra by Ultrakinematic is a resilient navigation system for drones from small multirotors up to the MALE class. It fuses inertial, visual, scene-matching and terrain-referenced navigation, rejects jammed, spoofed or meaconed GNSS, and outputs position with a confidence estimate at 100–250 Hz."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "DefinedTermSet",
+   "@id": "https://meaconing.com/#glossary",
+   "name": "Meaconing and GNSS glossary",
+   "hasDefinedTerm": [
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://meaconing.com/#term-global-navigation-satellite-system",
+     "name": "Global Navigation Satellite System",
+     "description": "The family of satellite navigation systems: GPS, Galileo, GLONASS and BeiDou.",
+     "inDefinedTermSet": "https://meaconing.com/#glossary",
+     "termCode": "GNSS"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://meaconing.com/#term-receiver",
+     "name": "Receiver",
+     "description": "The chip in a phone, car, drone or aircraft that listens to satellites and calculates position and time.",
+     "inDefinedTermSet": "https://meaconing.com/#glossary"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://meaconing.com/#term-clock-error",
+     "name": "Clock error",
+     "description": "How far the receiver's cheap clock is off. Solved using a fourth satellite, and where meaconing's delay hides.",
+     "inDefinedTermSet": "https://meaconing.com/#glossary"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://meaconing.com/#term-meaconing",
+     "name": "Meaconing",
+     "description": "Capturing genuine GNSS signals and re-broadcasting them to mislead receivers.",
+     "inDefinedTermSet": "https://meaconing.com/#glossary"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://meaconing.com/#term-meaconer",
+     "name": "Meaconer",
+     "description": "The equipment that performs meaconing: a receiving antenna, an amplifier and a transmitting antenna.",
+     "inDefinedTermSet": "https://meaconing.com/#glossary"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://meaconing.com/#term-replay-attack",
+     "name": "Replay attack",
+     "description": "Recording signals and playing them back later. A form of meaconing.",
+     "inDefinedTermSet": "https://meaconing.com/#glossary"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://meaconing.com/#term-spoofing",
+     "name": "Spoofing",
+     "description": "Broadcasting fake GNSS signals to make a receiver report a false position or time.",
+     "inDefinedTermSet": "https://meaconing.com/#glossary"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://meaconing.com/#term-jamming",
+     "name": "Jamming",
+     "description": "Broadcasting noise on GNSS frequencies so receivers cannot hear satellites.",
+     "inDefinedTermSet": "https://meaconing.com/#glossary"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://meaconing.com/#term-navigation-message-authentication",
+     "name": "Navigation Message Authentication",
+     "description": "Galileo's digital signature for its open signal. Stops forged messages, not copied ones.",
+     "inDefinedTermSet": "https://meaconing.com/#glossary",
+     "termCode": "OSNMA"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://meaconing.com/#term-receiver-autonomous-integrity-monitoring",
+     "name": "Receiver Autonomous Integrity Monitoring",
+     "description": "A receiver check that spots one satellite disagreeing with the others.",
+     "inDefinedTermSet": "https://meaconing.com/#glossary",
+     "termCode": "RAIM"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://meaconing.com/#term-inertial-measurement-unit",
+     "name": "Inertial Measurement Unit",
+     "description": "Accelerometers and gyroscopes that measure motion. Can't be jammed, but drift over time.",
+     "inDefinedTermSet": "https://meaconing.com/#glossary",
+     "termCode": "IMU"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://meaconing.com/#term-terrain-referenced-navigation",
+     "name": "Terrain-Referenced Navigation",
+     "description": "Finding position by matching measured ground height to an elevation map.",
+     "inDefinedTermSet": "https://meaconing.com/#glossary",
+     "termCode": "TRN"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://meaconing.com/#term-scene-matching",
+     "name": "Scene matching",
+     "description": "Finding position by matching camera images to satellite imagery.",
+     "inDefinedTermSet": "https://meaconing.com/#glossary"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://meaconing.com/#term-medium-altitude-long-endurance",
+     "name": "Medium Altitude Long Endurance",
+     "description": "Large uncrewed aircraft flying at medium altitude for a day or more. NATO Class III.",
+     "inDefinedTermSet": "https://meaconing.com/#glossary",
+     "termCode": "MALE"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://meaconing.com/#term-return-to-home",
+     "name": "Return-to-home",
+     "description": "A drone failsafe that flies back to the launch point, usually guided by GNSS.",
+     "inDefinedTermSet": "https://meaconing.com/#glossary",
+     "termCode": "RTH"
+    }
+   ]
+  },
+  {
+   "@type": "Product",
+   "@id": "https://meaconing.com/#navion-terra",
+   "name": "Navion Terra",
+   "description": "Resilient visual-inertial and terrain-referenced navigation system for drone operations at any scale up to the MALE segment. Detects and rejects jammed, spoofed and meaconed GNSS by cross-checking against terrain, imagery and inertial motion.",
+   "brand": {
+    "@type": "Brand",
+    "name": "Ultrakinematic"
+   },
+   "manufacturer": {
+    "@type": "Organization",
+    "name": "Ultrakinematic",
+    "url": "https://ultrakinematic.com",
+    "email": "contact@ultrakinematic.com"
+   },
+   "url": "https://ultrakinematic.com",
+   "category": "GNSS-independent navigation system for uncrewed aircraft",
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Platform range",
+     "value": "Micro, mini, small, tactical and MALE uncrewed aircraft (NATO Class I to III)"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Board mass",
+     "value": "90 g"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Peak power draw",
+     "value": "20 W"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Navigation output rate",
+     "value": "100–250 Hz"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Sensor integration",
+     "value": "Camera, radar altimeter, IMU, GNSS"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interfaces",
+     "value": "Ethernet, CAN, UART, USB"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Output formats",
+     "value": "NMEA, MAVLink, custom SDK"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Threats handled",
+     "value": "GNSS jamming, spoofing and meaconing"
+    }
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "meaconing.com",
+     "item": "https://meaconing.com/"
+    }
+   ]
+  }
+ ]
+}
+</script>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a night-sky field guide. One reading column for beginners, widened for diagrams and tables; signal-yellow marks the echo (the attack), teal marks independent navigation. */
+:root{
+  --bg:#f4f5fa; --surface:#ffffff; --sunk:#e9ebf4; --ink:#14183a; --muted:#565b7c; --line:#d6d9ea;
+  --echo:#a14b00; --echo-fill:#f5a300; --echo-soft:#fff1d1; --safe:#0d7468; --safe-soft:#d8f1ec; --ok:#1d7a3a;
+  --band:#14183a; --band-ink:#ffc23d; --band-muted:#b9bddb;
+  --f-display:"Big Shoulders Display","Arial Narrow","Roboto Condensed",sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --t-xs:.78rem; --t-sm:.92rem; --t-md:1.06rem; --t-lg:1.4rem; --t-xl:clamp(2rem,4.4vw,3rem); --t-hero:clamp(2.4rem,5.2vw,4.3rem);
+  --r:12px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c0f2b; --surface:#141943; --sunk:#10143a; --ink:#eceefd; --muted:#a4a9cc; --line:#272d5e;
+  --echo:#ffc23d; --echo-fill:#ffc23d; --echo-soft:#33290f; --safe:#3ad6c0; --safe-soft:#123b3c; --ok:#5ad08a;
+  --band:#05071c; --band-ink:#ffc23d; --band-muted:#9da2c8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c0f2b; --surface:#141943; --sunk:#10143a; --ink:#eceefd; --muted:#a4a9cc; --line:#272d5e;
+  --echo:#ffc23d; --echo-fill:#ffc23d; --echo-soft:#33290f; --safe:#3ad6c0; --safe-soft:#123b3c; --ok:#5ad08a;
+  --band:#05071c; --band-ink:#ffc23d; --band-muted:#9da2c8; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:var(--t-md);line-height:1.62}
+a{color:var(--safe);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--echo);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1140px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:var(--f-display);line-height:1.02;text-wrap:balance;margin:0;font-weight:800;letter-spacing:.005em}
+h2{font-size:var(--t-xl);text-transform:uppercase}
+h3{font-size:var(--t-lg);font-weight:700}
+p{margin:0}
+.lede{color:var(--muted);max-width:64ch}
+.eyebrow{font-family:var(--f-mono);font-size:var(--t-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--echo)}
+.eyebrow.safe{color:var(--safe)}
+.tab{font-variant-numeric:tabular-nums}
+.sechead{display:grid;gap:14px;margin-bottom:36px;max-width:820px}
+section{padding-block:clamp(56px,8vw,96px)}
+section+section{border-top:1px solid var(--line)}
+.prose{display:grid;gap:14px;max-width:66ch}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:20px;padding-block:12px}
+.brand{font-family:var(--f-display);font-weight:800;font-size:1.35rem;letter-spacing:.02em;color:var(--ink);text-decoration:none;display:flex;gap:8px;align-items:center;white-space:nowrap}
+.navlinks{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;min-width:0;font-size:var(--t-sm)}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{color:var(--muted);text-decoration:none;white-space:nowrap}
+.navlinks a:hover{color:var(--ink)}
+
+/* hero */
+.hero{padding-block:clamp(36px,6vw,72px)}
+.hero-grid>*{min-width:0}
+.hero-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(24px,4vw,56px);align-items:start}
+.pron{font-family:var(--f-mono);font-size:var(--t-sm);color:var(--muted);margin-top:16px}
+.pron b{color:var(--ink);font-weight:500}
+.hero h1{font-size:var(--t-hero);text-transform:uppercase;margin-top:10px}
+.hero h1 span{color:var(--echo)}
+.hero .lede{margin-top:20px;font-size:1.12rem}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;font-weight:700;font-size:var(--t-sm);text-decoration:none;border:1.5px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer;font-family:var(--f-body)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+
+/* incident replay */
+.replay{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:0}
+.replay-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--sunk)}
+.replay-top b{font-family:var(--f-mono);font-size:var(--t-xs);letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.clock{font-family:var(--f-mono);font-size:var(--t-xs);color:var(--muted);font-variant-numeric:tabular-nums}
+canvas#rp{display:block;width:100%;aspect-ratio:16/9;max-width:100%}
+.ctrl{display:flex;align-items:center;gap:12px;padding:10px 14px;border-top:1px solid var(--line)}
+.ctrl button{flex:none;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--ink);background:var(--surface);color:var(--ink);cursor:pointer;display:grid;place-items:center}
+.ctrl input{flex:1;min-width:0;accent-color:var(--echo-fill)}
+.phases{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line)}
+.ph{padding:10px 12px;font-size:.8rem;color:var(--muted);border-left:1px solid var(--line);min-width:0}
+.ph:first-child{border-left:0}
+.ph b{display:block;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;margin-bottom:2px}
+.ph.on{background:var(--echo-soft);color:var(--ink)}
+.ph.on b{color:var(--echo)}
+.phase-cap{padding:12px 14px;border-top:1px solid var(--line);font-size:var(--t-sm);min-height:4.4em}
+.panels{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.pn{padding:12px 14px;min-width:0;display:grid;gap:6px;align-content:start}
+.pn+.pn{border-left:1px solid var(--line)}
+.pn .hd{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:6px;align-items:center}
+.sw{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+.pn .big{font-family:var(--f-display);font-size:1.9rem;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.checks{display:grid;gap:2px;font-size:.78rem}
+.checks div{display:flex;justify-content:space-between;gap:8px}
+.checks span:last-child{font-family:var(--f-mono);color:var(--ok);white-space:nowrap}
+.checks span.warn{color:var(--echo)}
+
+/* banner */
+.band{background:var(--band);color:var(--band-ink);padding-block:clamp(48px,8vw,88px);border:0}
+.band h2{font-size:clamp(2.6rem,8.5vw,6.4rem);line-height:.92;text-transform:uppercase;max-width:14ch}
+.band h2 em{font-style:normal;display:block;color:var(--band-muted)}
+.band-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:44px;border-top:1px solid color-mix(in srgb,var(--band-ink) 30%,transparent);padding-top:28px}
+.band-stats div{min-width:0;display:grid;gap:6px;align-content:start}
+.band-stats .n{font-family:var(--f-display);font-size:clamp(2.2rem,4.6vw,3.4rem);font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.band-stats p{color:var(--band-muted);font-size:var(--t-sm)}
+.band-stats small{font-family:var(--f-mono);font-size:.7rem;color:var(--band-muted);opacity:.8}
+
+/* basics */
+.basics{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.figure{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;overflow-x:auto}
+.figure svg{display:block;width:100%;height:auto;min-width:440px}
+.t-ink{fill:var(--ink)} .t-mut{fill:var(--muted)} .t-echo{fill:var(--echo)} .t-safe{fill:var(--safe)}
+.s-ink{stroke:var(--ink)} .s-mut{stroke:var(--muted)} .s-line{stroke:var(--line)} .s-echo{stroke:var(--echo-fill)} .s-safe{stroke:var(--safe)}
+.svgt{font-family:var(--f-mono);font-size:11px}
+.keyfacts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:36px}
+.keyfacts div{background:var(--surface);padding:18px;display:grid;gap:4px;align-content:start}
+.keyfacts b{font-family:var(--f-display);font-size:1.7rem;line-height:1;font-variant-numeric:tabular-nums}
+.keyfacts p{font-size:var(--t-sm);color:var(--muted)}
+
+/* threats overview */
+.tgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.tc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:8px;align-content:start;min-width:0}
+.tc.me{border:2px solid var(--echo-fill);background:var(--echo-soft)}
+.tc h3{font-size:1.45rem;text-transform:uppercase}
+.tc p{font-size:var(--t-sm)}
+.tc .like{color:var(--muted);font-style:italic;font-size:.86rem}
+.notice{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;display:inline-flex;gap:6px;align-items:center;color:var(--muted)}
+.notice i{width:8px;height:8px;border-radius:50%}
+.n-yes i{background:var(--ok)} .n-maybe i{background:var(--muted)} .n-no i{background:var(--echo-fill)}
+.sister{margin-top:22px;font-size:var(--t-sm);color:var(--muted)}
+
+/* deep dive */
+.part{padding-top:clamp(40px,6vw,64px);margin-top:clamp(40px,6vw,64px);border-top:1px dashed var(--line)}
+.part:first-of-type{border-top:0;margin-top:0;padding-top:0}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:start}
+.tablebox{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;font-size:var(--t-sm)}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child th,tr:last-child td{border-bottom:0}
+thead th{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--sunk)}
+tbody th{font-weight:700}
+.col-me{background:var(--echo-soft)}
+.forms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.form{border-top:3px solid var(--echo-fill);background:var(--surface);border-radius:0 0 var(--r) var(--r);padding:18px;display:grid;gap:8px;align-content:start;min-width:0;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.form h3{font-size:1.3rem}
+.form p{font-size:var(--t-sm);color:var(--muted)}
+.form .res{font-size:var(--t-sm);color:var(--ink)}
+.reasons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.reason{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:6px;min-width:0}
+.reason h3{font-size:1.2rem}
+.reason p{font-size:var(--t-sm);color:var(--muted)}
+.reason.wide{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:center}
+.reason.wide>div{display:grid;gap:6px;min-width:0}
+.mini{overflow-x:auto}
+.mini svg{display:block;width:100%;height:auto;min-width:320px}
+.timeline{list-style:none;padding:0;margin:0;display:grid;border-left:2px solid var(--line);margin-left:8px}
+.timeline li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:16px;padding:0 0 22px 22px;position:relative}
+.timeline li::before{content:"";position:absolute;left:-8px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--echo-fill)}
+.timeline li:last-child{padding-bottom:0}
+.timeline time{font-family:var(--f-mono);font-size:var(--t-xs);color:var(--echo);padding-top:2px}
+.timeline b{display:block}
+.timeline p{font-size:var(--t-sm);color:var(--muted)}
+.gs{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:10px;font-size:var(--t-sm);align-content:start}
+.gs .hd{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.gs .row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.gs .row:last-child{border-bottom:0}
+.gs .row span:last-child{font-family:var(--f-mono);color:var(--ok)}
+.gs .truth{border-radius:8px;background:var(--echo-soft);padding:10px 12px}
+.verdict{display:inline-flex;align-items:center;gap:6px;font-weight:700;white-space:nowrap}
+.verdict i{width:10px;height:10px;border-radius:50%;flex:none}
+.v-no i{background:var(--echo-fill)} .v-some i{background:var(--muted)} .v-yes i{background:var(--safe)}
+.v-no{color:var(--echo)} .v-yes{color:var(--safe)}
+.tells{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.tell{border-top:2px solid var(--ink);padding-top:12px;font-size:var(--t-sm);display:grid;gap:4px;align-content:start}
+.tell b{font-size:1rem}
+.tell p{color:var(--muted)}
+
+/* crewed vs autonomous */
+.fleet{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.fleet div{background:var(--surface);padding:16px;display:grid;gap:4px;align-content:start;min-width:0}
+.fleet b{font-family:var(--f-display);font-size:1.2rem;text-transform:uppercase}
+.fleet p{font-size:.85rem;color:var(--muted)}
+.toolkit{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:28px}
+.toolkit div{display:grid;gap:4px;align-content:start;font-size:var(--t-sm)}
+.toolkit b{font-size:1.02rem}
+.toolkit p{color:var(--muted)}
+.question{margin-block:clamp(48px,7vw,80px) 28px;font-family:var(--f-display);font-size:clamp(2.2rem,6vw,4.2rem);font-weight:800;text-transform:uppercase;line-height:.95;max-width:16ch}
+.question span{color:var(--echo)}
+.vs th:nth-child(2),.vs td:nth-child(2){width:38%}
+.vs td:nth-child(3){background:var(--echo-soft)}
+.vs thead th:nth-child(3){background:var(--echo-soft);color:var(--echo)}
+
+/* classes ladder */
+.ladder{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;align-items:end}
+.rung{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:6px;align-content:start;min-width:0}
+.rung .cls{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.rung b{font-family:var(--f-display);font-size:1.35rem;text-transform:uppercase;line-height:1}
+.rung .w{font-family:var(--f-mono);font-size:.82rem}
+.rung p{font-size:.84rem;color:var(--muted)}
+.rung .bar{height:6px;border-radius:3px;background:var(--echo-fill)}
+.cover{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:var(--t-sm);font-weight:700;color:var(--safe)}
+.cover::before{content:"";flex:1;height:10px;border-radius:5px;background:var(--safe);order:2}
+.cover span{order:1;white-space:nowrap}
+.cover em{order:3;font-style:normal;white-space:nowrap}
+
+/* navion */
+.navion{background:var(--surface)}
+.nv-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:end}
+.nv-hero h2{font-size:clamp(2.2rem,5.5vw,3.8rem)}
+.nv-hero h2 span{color:var(--safe)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tags span{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:999px;border:1px solid var(--safe);color:var(--safe)}
+.qcompare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:40px}
+.qbox{border-radius:var(--r);padding:20px;display:grid;gap:8px;align-content:start;min-width:0}
+.qbox.old{background:var(--echo-soft)}
+.qbox.new{background:var(--safe-soft)}
+.qbox .hd{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.qbox q{font-family:var(--f-display);font-size:1.7rem;font-weight:700;line-height:1.05;quotes:"“" "”"}
+.qbox p{font-size:var(--t-sm)}
+.stages{list-style:none;padding:0;margin:40px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;counter-reset:st}
+.stages li{display:grid;gap:6px;align-content:start;min-width:0;border-top:3px solid var(--safe);padding-top:12px;font-size:var(--t-sm)}
+.stages li::before{counter-increment:st;content:"Step " counter(st);font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--safe)}
+.stages b{font-family:var(--f-display);font-size:1.35rem;text-transform:uppercase}
+.stages p{color:var(--muted)}
+.refs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:40px}
+.ref{border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:4px;background:var(--bg);min-width:0}
+.ref code{font-family:var(--f-mono);font-size:.74rem;color:var(--safe);font-weight:500}
+.ref b{font-size:.98rem}
+.ref p{font-size:.84rem;color:var(--muted)}
+.ref.gn code{color:var(--echo)}
+.specs{margin-top:40px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.specs div{background:var(--bg);padding:14px 16px;display:grid;gap:2px}
+.specs span{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.specs b{font-size:1.02rem}
+.contact{margin-top:40px;display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;justify-content:space-between;padding:26px;border-radius:16px;background:var(--band);color:var(--band-ink)}
+.contact h3{font-size:1.8rem;text-transform:uppercase}
+.contact p{color:var(--band-muted);font-size:var(--t-sm);margin-top:4px}
+.mail{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mail code{font-family:var(--f-mono);font-size:var(--t-sm);padding:9px 12px;border-radius:8px;background:color-mix(in srgb,var(--band-ink) 14%,transparent);user-select:all}
+.mail button,.mail a{font-family:var(--f-body);font-size:var(--t-sm);font-weight:700;padding:9px 14px;border-radius:999px;border:1px solid var(--band-ink);cursor:pointer;text-decoration:none}
+.mail button{background:var(--band-ink);color:var(--band)}
+.mail a{background:transparent;color:var(--band-ink)}
+
+/* faq + glossary */
+.faq{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;border-top:1px solid var(--line)}
+.qa{padding-block:20px;border-bottom:1px solid var(--line);display:grid;gap:8px;min-width:0}
+.qa h3{font-family:var(--f-body);font-size:1.08rem;font-weight:700;line-height:1.3}
+.qa p{font-size:var(--t-sm);color:var(--muted)}
+.gloss{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin:0}
+.gloss div{background:var(--surface);padding:14px 16px;min-width:0}
+.gloss dt{font-weight:700}
+.gloss dt abbr{text-decoration:none;color:var(--echo);font-family:var(--f-mono);font-size:.8rem;margin-left:6px}
+.gloss dd{margin:4px 0 0;font-size:.86rem;color:var(--muted)}
+.sources ol{columns:2;column-gap:40px;font-size:.84rem;color:var(--muted);padding-left:20px;margin:0}
+.sources li{break-inside:avoid;margin-bottom:8px}
+.foot{font-size:.8rem;color:var(--muted);margin-top:12px;max-width:80ch}
+footer{padding-block:32px;font-size:.84rem;color:var(--muted);border-top:1px solid var(--line)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+
+@media (max-width:960px){
+  .hero-grid,.basics,.split,.nv-hero{grid-template-columns:1fr}
+  .tgrid,.fleet,.specs,.band-stats{grid-template-columns:1fr 1fr}
+  .forms,.refs,.toolkit,.tells{grid-template-columns:1fr 1fr}
+  .ladder{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stages{grid-template-columns:1fr 1fr}
+  .faq{grid-template-columns:1fr}
+  .gloss{grid-template-columns:1fr 1fr}
+  .reason.wide{grid-template-columns:1fr}
+  .sources ol{columns:1}
+}
+@media (max-width:600px){
+  .tgrid,.forms,.refs,.toolkit,.tells,.reasons,.qcompare,.stages,.gloss,.keyfacts{grid-template-columns:1fr}
+  .ladder{grid-template-columns:1fr 1fr}
+  .phases{grid-template-columns:1fr 1fr}
+  .ph:nth-child(3){border-left:0}
+  .ph:nth-child(n+3){border-top:1px solid var(--line)}
+  .timeline li{grid-template-columns:1fr;gap:2px}
+  .panels{grid-template-columns:1fr}
+  .pn+.pn{border-left:0;border-top:1px solid var(--line)}
+}
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="brand" href="#top"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="8" cy="12" r="2.4" fill="currentColor"/><path d="M12 7.5a6 6 0 0 1 0 9M15 5a9.5 9.5 0 0 1 0 14M18 2.6a13 13 0 0 1 0 18.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>MEACONING.COM</a>
+    <div class="navlinks">
+      <a href="#basics">GNSS basics</a>
+      <a href="#threats">All threats</a>
+      <a href="#deep-dive">Meaconing deep dive</a>
+      <a href="#detection">Why it's hard to detect</a>
+      <a href="#autonomy">Crewed vs autonomous</a>
+      <a href="#navion">Navion Terra</a>
+      <a href="#faq">FAQ</a>
+      <a href="#glossary">Glossary</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Meaconing explained for everyone</p>
+      <h1>Meaconing: your navigation hears an <span>echo</span> and believes it.</h1>
+      <p class="pron">Say it: <b>MEE-kuh-ning</b> · from "masking beacon"</p>
+      <p class="lede">Meaconing means capturing real satellite navigation signals and playing them back from somewhere else. A GPS receiver hears the replay, trusts it, and calculates the wrong position. Every built-in check still says the position is correct.</p>
+      <p class="lede" style="margin-top:12px">This site explains it from zero. No prior knowledge needed.</p>
+      <div class="cta">
+        <a class="btn primary" href="#basics">Start with the basics</a>
+        <a class="btn" href="#detection">Why it's so hard to detect</a>
+      </div>
+    </div>
+
+    <figure class="replay" aria-label="Incident replay: a drone being meaconed">
+      <div class="replay-top"><b>Incident replay · drone survey flight</b><span class="clock" id="clock">T+02:06</span></div>
+      <canvas id="rp" role="img" aria-label="Map showing a drone's true route, the position its GPS receiver reports after a meaconer captures it, and the position Navion Terra reports"></canvas>
+      <div class="ctrl">
+        <button type="button" id="play" aria-label="Play replay"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path id="playicon" d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg></button>
+        <label for="scrub" class="eyebrow" style="color:var(--muted);flex:none">Time</label>
+        <input type="range" id="scrub" min="0" max="1000" value="700" aria-label="Scrub through the incident">
+      </div>
+      <div class="phases" id="phases">
+        <div class="ph"><b>1 · Normal</b>Real sky signals</div>
+        <div class="ph"><b>2 · Echo on</b>Attacker starts relaying</div>
+        <div class="ph"><b>3 · Capture</b>Receiver switches to echo</div>
+        <div class="ph on"><b>4 · Deceived</b>Wrong, yet "valid"</div>
+      </div>
+      <p class="phase-cap" id="cap">The receiver now reports the attacker's location. All checks stay green. A GNSS-only drone has no way to tell.</p>
+      <div class="panels">
+        <div class="pn">
+          <div class="hd"><i class="sw" style="background:var(--echo-fill)"></i>What the GPS receiver says</div>
+          <div class="big" id="eG">1.9 km off</div>
+          <div class="checks">
+            <div><span>Satellites tracked</span><span>11 ✓</span></div>
+            <div><span>Signal authentication</span><span>PASS ✓</span></div>
+            <div><span>Integrity check (RAIM)</span><span>PASS ✓</span></div>
+            <div><span>Fix quality</span><span>3D ✓</span></div>
+          </div>
+        </div>
+        <div class="pn">
+          <div class="hd"><i class="sw" style="background:var(--safe)"></i>What Navion Terra says</div>
+          <div class="big" id="eN">8 m off</div>
+          <div class="checks">
+            <div><span>GNSS vs terrain below</span><span id="nt1" class="warn">Disagree</span></div>
+            <div><span>GNSS vs own motion</span><span id="nt2" class="warn">Disagree</span></div>
+            <div><span>GNSS weight</span><span id="nt3" class="warn">Rejected</span></div>
+            <div><span>Terrain + vision fixes</span><span>Active ✓</span></div>
+          </div>
+        </div>
+      </div>
+    </figure>
+  </div>
+</header>
+
+<section class="band" aria-labelledby="h-band">
+  <div class="wrap">
+    <h2 id="h-band">Satellite navigation is under attack. <em>Every day.</em></h2>
+    <div class="band-stats">
+      <div><span class="n">1,500</span><p>commercial flights a day were being fed fake GPS signals by August 2024.</p><small>OPSGROUP, 2024</small></div>
+      <div><span class="n">41,000</span><p>flights spoofed in a single month, mid-July to mid-August 2024.</p><small>OPSGROUP, 2024</small></div>
+      <div><span class="n">970</span><p>ships a day had GPS jammed in the Gulf and Strait of Hormuz in June 2025.</p><small>Windward, 2025</small></div>
+      <div><span class="n">10,000</span><p>drones a month lost by Ukraine in 2023, mostly to electronic warfare.</p><small>RUSI, 2023</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="basics" aria-labelledby="h-basics">
+  <div class="wrap">
+    <div class="basics">
+      <div class="prose">
+        <p class="eyebrow">Start here · GNSS in 60 seconds</p>
+        <h2 id="h-basics">How your GPS knows where you are</h2>
+        <p><b>GNSS</b> (Global Navigation Satellite System) is the family name for GPS and its cousins: Europe's Galileo, Russia's GLONASS and China's BeiDou. Together they have well over 100 satellites in orbit.</p>
+        <p>Each satellite carries an atomic clock and keeps broadcasting one simple message: <i>"This is satellite 12. The time is exactly this. I am exactly here."</i></p>
+        <p>Your receiver notes how late each message arrives. Radio travels at the speed of light, about 300 km every thousandth of a second, so a delay converts into a distance. With distances to several satellites, the receiver works out where it is.</p>
+        <p>One detail matters for everything on this site. The receiver's own clock is cheap and inaccurate, so it needs a <b>fourth satellite</b> just to work out its own clock error. Remember that. It is exactly the gap that meaconing slips through.</p>
+      </div>
+      <div class="figure" aria-label="Diagram: a receiver measures distance to four satellites">
+        <svg viewBox="0 0 480 360" role="img" aria-labelledby="bt">
+          <title id="bt">Four satellites each send time and position. The receiver turns travel time into distance.</title>
+          <g class="s-mut" stroke-width="1" fill="none" stroke-dasharray="3 5" opacity=".9">
+            <line x1="70" y1="60" x2="240" y2="300"/><line x1="190" y1="34" x2="240" y2="300"/><line x1="320" y1="40" x2="240" y2="300"/><line x1="430" y1="80" x2="240" y2="300"/>
+          </g>
+          <g class="s-ink" stroke-width="1.6" fill="none">
+            <g transform="translate(70,60)"><rect x="-7" y="-7" width="14" height="14"/><path d="M-22 0h15M7 0h15"/></g>
+            <g transform="translate(190,34)"><rect x="-7" y="-7" width="14" height="14"/><path d="M-22 0h15M7 0h15"/></g>
+            <g transform="translate(320,40)"><rect x="-7" y="-7" width="14" height="14"/><path d="M-22 0h15M7 0h15"/></g>
+            <g transform="translate(430,80)"><rect x="-7" y="-7" width="14" height="14"/><path d="M-22 0h15M7 0h15"/></g>
+          </g>
+          <text x="70" y="88" text-anchor="middle" class="svgt t-mut">sat 1</text>
+          <text x="190" y="62" text-anchor="middle" class="svgt t-mut">sat 2</text>
+          <text x="320" y="68" text-anchor="middle" class="svgt t-mut">sat 3</text>
+          <text x="430" y="108" text-anchor="middle" class="svgt t-safe">sat 4: fixes the clock</text>
+          <text x="128" y="190" class="svgt t-mut" transform="rotate(-55 128 190)">d₁ = c × delay</text>
+          <circle cx="240" cy="300" r="7" class="t-ink"/>
+          <circle cx="240" cy="300" r="20" fill="none" class="s-ink" stroke-width="1" opacity=".4"/>
+          <text x="240" y="336" text-anchor="middle" class="svgt t-ink">your receiver</text>
+          <text x="240" y="352" text-anchor="middle" class="svgt t-mut">solves x, y, z + clock error</text>
+        </svg>
+      </div>
+    </div>
+    <div class="keyfacts">
+      <div><b>≈ 20,200 km</b><p>Altitude of GPS satellites. The signal spends about 0.07 seconds travelling to you.</p></div>
+      <div><b>300 m</b><p>Distance error caused by a timing error of just one millionth of a second.</p></div>
+      <div><b>Below noise</b><p>By the time it reaches Earth, the signal is weaker than the background radio noise around it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="threats" aria-labelledby="h-threats">
+  <div class="wrap">
+    <div class="sechead">
+      <p class="eyebrow">Every way GNSS can fail · the short version</p>
+      <h2 id="h-threats">Eight things that break satellite navigation</h2>
+      <p class="lede">A signal this faint is easy to drown, fake, copy or block. Meaconing is one threat among several. Here is each in a sentence, with an everyday comparison and whether you would notice it.</p>
+    </div>
+    <div class="tgrid">
+      <article class="tc"><span class="notice n-yes"><i></i>You notice</span><h3>Jamming</h3><p>A transmitter blasts noise on GNSS frequencies so the receiver hears nothing at all.</p><p class="like">Like someone shouting over a whisper.</p></article>
+      <article class="tc"><span class="notice n-no"><i></i>Hard to notice</span><h3>Spoofing</h3><p>A transmitter fakes satellite signals and gradually walks the receiver to a false position or time.</p><p class="like">Like a forged letter in a convincing envelope.</p></article>
+      <article class="tc me"><span class="notice n-no"><i></i>Hardest to notice</span><h3>Meaconing</h3><p>An attacker records real satellite signals and replays them. The content is genuine, so it passes authenticity checks.</p><p class="like">Like a recording of your friend's real voice, played from the wrong room.</p><a href="#deep-dive">Deep dive below ↓</a></article>
+      <article class="tc"><span class="notice n-yes"><i></i>You notice</span><h3>Blockage</h3><p>Tunnels, buildings, forests and roofs cut the line of sight to the satellites.</p><p class="like">Like losing phone signal in a lift.</p></article>
+      <article class="tc"><span class="notice n-maybe"><i></i>Sometimes</span><h3>Multipath</h3><p>Signals bounce off glass and concrete, so the receiver measures the wrong distances. Common in city "canyons".</p><p class="like">Like an echo off a cliff confusing which way a sound came from.</p></article>
+      <article class="tc"><span class="notice n-maybe"><i></i>Sometimes</span><h3>Space weather</h3><p>Solar storms disturb the upper atmosphere and make signals flicker or fade, especially near the poles and equator.</p><p class="like">Like heat haze bending what you see.</p></article>
+      <article class="tc"><span class="notice n-maybe"><i></i>Sometimes</span><h3>System faults</h3><p>The satellite systems themselves can fail. Galileo's public service was down for about six days in July 2019.</p><p class="like">Like a power cut at the source.</p></article>
+      <article class="tc"><span class="notice n-maybe"><i></i>Sometimes</span><h3>Accidental interference</h3><p>Faulty electronics and illegal in-vehicle "privacy jammers" leak noise onto GNSS bands, sometimes near airports.</p><p class="like">Like a neighbour's broken radio humming through the wall.</p></article>
+    </div>
+    <p class="sister">Want the full picture of every GNSS threat, with incident data from aviation and shipping? Visit our sister site <a href="https://gnssdenial.com">gnssdenial.com</a>.</p>
+  </div>
+</section>
+
+<section id="deep-dive" aria-labelledby="h-deep">
+  <div class="wrap">
+    <div class="sechead">
+      <p class="eyebrow">Meaconing deep dive</p>
+      <h2 id="h-deep">The attack that tells the truth, at the wrong time and place</h2>
+    </div>
+
+    <div class="part">
+      <div class="split">
+        <div class="prose">
+          <h3>Spoofing forges. Meaconing copies.</h3>
+          <p>A spoofer has to build fake satellite signals from scratch. That takes skill, and the result can contain small mistakes that a careful receiver might catch.</p>
+          <p>A meaconer doesn't make anything up. It listens to the real satellites with one antenna and re-transmits what it hears from another, a little louder. The messages, codes and digital signatures are all authentic, because they <i>are</i> the real thing.</p>
+          <p>The only false part is <b>where and when</b> the signal is coming from. A receiver locked onto the copy computes the position of the attacker's listening antenna, not its own.</p>
+        </div>
+        <div class="tablebox">
+          <table>
+            <thead><tr><th scope="col">What the receiver gets</th><th scope="col">Real sky</th><th scope="col">Spoofing</th><th scope="col" class="col-me">Meaconing</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Signal origin</th><td>Satellites</td><td>Attacker's generator</td><td class="col-me">Satellites, re-sent by attacker</td></tr>
+              <tr><th scope="row">Message content</th><td>Genuine</td><td>Forged</td><td class="col-me">Genuine</td></tr>
+              <tr><th scope="row">Digital signature</th><td>Valid</td><td>Fails, if checked</td><td class="col-me">Valid</td></tr>
+              <tr><th scope="row">Satellites agree?</th><td>Yes</td><td>Usually</td><td class="col-me">Yes</td></tr>
+              <tr><th scope="row">Position computed</th><td>Your own</td><td>Attacker's choice</td><td class="col-me">Attacker's antenna</td></tr>
+              <tr><th scope="row">Skill needed</th><td>None</td><td>High</td><td class="col-me">Low to moderate</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="split">
+        <div class="prose">
+          <h3>An old trick from the Second World War</h3>
+          <p>In 1940 and 1941, German bombers found their way over Britain at night using radio beacons. Britain's No. 80 (Signals) Wing of the Royal Air Force answered with "masking beacons", or <b>meacons</b>. Stations in England picked up the German beacon signals and re-radiated them from British soil.</p>
+          <p>A navigator taking a bearing on what sounded like his own beacon was pointed somewhere else. Accounts from the period describe German aircraft getting lost, and some landing at British airfields by mistake.</p>
+          <p>Eighty years later the principle is the same. The beacons are now satellites, and the navigator is often a computer with no window to look out of.</p>
+        </div>
+        <div class="figure" aria-label="Diagram of a live meaconing attack">
+          <svg viewBox="0 0 480 330" role="img" aria-labelledby="mt">
+            <title id="mt">The meaconer listens to the satellites and rebroadcasts them louder. The drone computes the meaconer's position.</title>
+            <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="t-echo"/></marker></defs>
+            <g class="s-ink" stroke-width="1.5" fill="none">
+              <g transform="translate(80,36)"><rect x="-7" y="-7" width="14" height="14"/><path d="M-22 0h15M7 0h15"/></g>
+              <g transform="translate(240,24)"><rect x="-7" y="-7" width="14" height="14"/><path d="M-22 0h15M7 0h15"/></g>
+              <g transform="translate(400,36)"><rect x="-7" y="-7" width="14" height="14"/><path d="M-22 0h15M7 0h15"/></g>
+            </g>
+            <g class="s-safe" stroke-width="1" stroke-dasharray="2 6" opacity=".6"><line x1="80" y1="46" x2="372" y2="236"/><line x1="240" y1="34" x2="372" y2="236"/><line x1="400" y1="46" x2="372" y2="236"/></g>
+            <text x="404" y="200" class="svgt t-safe" text-anchor="end">real signal, faint</text>
+            <g class="s-ink" stroke-width="1.2" opacity=".75"><line x1="80" y1="46" x2="110" y2="208"/><line x1="240" y1="34" x2="114" y2="208"/><line x1="400" y1="46" x2="118" y2="208"/></g>
+            <g transform="translate(114,214)">
+              <path d="M-12 66L0 0L12 66M-8 44h16M-4 22h8" class="s-ink" fill="none" stroke-width="1.8"/>
+              <circle r="5" class="t-echo"/>
+              <circle r="18" fill="none" class="s-echo" stroke-width="1.5" opacity=".8"/>
+              <circle r="32" fill="none" class="s-echo" stroke-width="1.2" opacity=".5"/>
+            </g>
+            <text x="114" y="300" text-anchor="middle" class="svgt t-ink">meaconer</text>
+            <text x="114" y="316" text-anchor="middle" class="svgt t-mut">listen · delay · re-send</text>
+            <path d="M152 222C230 186 300 196 352 228" class="s-echo" fill="none" stroke-width="2.6" marker-end="url(#arr)"/>
+            <text x="252" y="186" text-anchor="middle" class="svgt t-echo">copy, louder + later</text>
+            <g transform="translate(380,240)" class="s-ink" fill="none" stroke-width="1.6"><rect x="-11" y="-5" width="22" height="10" rx="3"/><path d="M-11 0h-12M11 0h12"/><ellipse cx="-27" cy="-4" rx="11" ry="3"/><ellipse cx="27" cy="-4" rx="11" ry="3"/></g>
+            <text x="380" y="270" text-anchor="middle" class="svgt t-ink">drone: real position</text>
+            <text x="380" y="286" text-anchor="middle" class="svgt t-echo">computes: "I'm at the tower"</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="part">
+      <h3 style="margin-bottom:20px">Three ways to meacon</h3>
+      <div class="forms">
+        <div class="form"><p class="eyebrow">Live relay</p><h3>The repeater</h3><p>One antenna receives the sky, another re-transmits it a few microseconds later. Cheap repeaters sold to bring GPS indoors work exactly this way, which is why using them without authorisation is restricted.</p><p class="res"><b>Result:</b> victims nearby compute the receiving antenna's position.</p></div>
+        <div class="form"><p class="eyebrow">Record and replay</p><h3>The recording</h3><p>The attacker records raw signals at one place and time, then plays them back later. If the recording was made on a moving vehicle, the replay produces a smooth, believable path.</p><p class="res"><b>Result:</b> victims relive someone else's journey, at the wrong time.</p></div>
+        <div class="form"><p class="eyebrow">Long-distance relay</p><h3>The tunnel</h3><p>Signals captured in one city are streamed over the internet and re-broadcast in another. Research shows this can even re-create authenticated messages at the far end.</p><p class="res"><b>Result:</b> victims compute a position hundreds of kilometres away.</p></div>
+      </div>
+    </div>
+
+    <div class="part">
+      <h3 style="margin-bottom:20px">Why the receiver believes it</h3>
+      <div class="reasons">
+        <div class="reason"><h3>The data is genuine</h3><p>Every navigation message really did come from a satellite. There is nothing false inside the signal to find.</p></div>
+        <div class="reason"><h3>The signatures check out</h3><p>Authentication such as Galileo's OSNMA proves a message came from a satellite. A copy of that message did. In field tests, OSNMA receivers reported meaconed signals as authentic.</p></div>
+        <div class="reason"><h3>All satellites agree</h3><p>Integrity checks such as RAIM look for one satellite that disagrees with the others. In meaconing they all arrive through the same relay, so they agree perfectly.</p></div>
+        <div class="reason"><h3>Louder wins</h3><p>Receivers lock onto the strongest matching signal. The real one is fainter than background noise, so the copy only needs a modest boost.</p></div>
+        <div class="reason wide">
+          <div>
+            <h3>The delay hides in the clock</h3>
+            <p>Remember the fourth satellite that fixes the receiver's clock? The relay adds the same extra delay to every satellite. To the receiver, that looks exactly like its own clock running slightly late. It quietly corrects "its clock" and reports a clean fix.</p>
+            <p>The extra delay never shows up as an error. The position simply becomes the attacker's antenna, and the time becomes slightly wrong.</p>
+          </div>
+          <div class="mini" aria-label="Diagram: equal extra delay on every satellite is absorbed as clock error">
+            <svg viewBox="0 0 360 170" role="img" aria-labelledby="ct">
+              <title id="ct">Each satellite distance gets the same extra delay, which the receiver treats as clock error</title>
+              <g class="svgt t-mut"><text x="0" y="28">sat 1</text><text x="0" y="62">sat 2</text><text x="0" y="96">sat 3</text><text x="0" y="130">sat 4</text></g>
+              <g fill="none" stroke-width="10" stroke-linecap="butt">
+                <line x1="44" y1="24" x2="190" y2="24" class="s-mut" opacity=".55"/><line x1="190" y1="24" x2="240" y2="24" class="s-echo"/>
+                <line x1="44" y1="58" x2="230" y2="58" class="s-mut" opacity=".55"/><line x1="230" y1="58" x2="280" y2="58" class="s-echo"/>
+                <line x1="44" y1="92" x2="160" y2="92" class="s-mut" opacity=".55"/><line x1="160" y1="92" x2="210" y2="92" class="s-echo"/>
+                <line x1="44" y1="126" x2="205" y2="126" class="s-mut" opacity=".55"/><line x1="205" y1="126" x2="255" y2="126" class="s-echo"/>
+              </g>
+              <text x="44" y="160" class="svgt t-mut">distance to attacker's antenna</text>
+              <text x="300" y="160" class="svgt t-echo" text-anchor="end">+ same delay</text>
+              <text x="290" y="96" class="svgt t-ink">→ "my clock</text>
+              <text x="290" y="110" class="svgt t-ink">is off"</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="detection" aria-labelledby="h-det">
+  <div class="wrap">
+    <div class="sechead">
+      <p class="eyebrow">Why it's so hard to detect · in real time</p>
+      <h2 id="h-det">Inside a meaconing incident, second by second</h2>
+      <p class="lede">After the event, analysts can often reconstruct a meaconing attack from logs. The hard part is catching it while it happens, from inside the aircraft, with only the receiver's own view. Here is what a drone and its ground station experience.</p>
+    </div>
+    <div class="split">
+      <ol class="timeline">
+        <li><time>T+0 s</time><div><b>Normal flight</b><p>The drone navigates by GNSS on a survey line. Everything is genuinely fine.</p></div></li>
+        <li><time>T+4 s</time><div><b>Meaconer switches on</b><p>A relay on a hilltop 2 km away starts re-sending the sky at low power. Nothing visible changes yet.</p></div></li>
+        <li><time>T+10 s</time><div><b>Power creeps up</b><p>The copy rises gently above the real signal. Signal-strength readings move a little, within normal flight variation.</p></div></li>
+        <li><time>T+14 s</time><div><b>Capture</b><p>The receiver's tracking slides from the real signal to the copy. Its clock estimate jumps by a few microseconds, and the clock filter smooths that over.</p></div></li>
+        <li><time>T+20 s</time><div><b>Wrong position, clean fix</b><p>The receiver now reports the hilltop. Eleven satellites, valid signatures, integrity check passed.</p></div></li>
+        <li><time>T+45 s</time><div><b>The autopilot "corrects"</b><p>It believes it has drifted 2 km and steers to fix an error that doesn't exist, flying away from its real route.</p></div></li>
+        <li><time>T+3 min</time><div><b>Failsafe makes it worse</b><p>Return-to-home and geofencing both rely on the same false position. The drone heads for a "home" computed from the attacker's location.</p></div></li>
+      </ol>
+      <div class="gs" aria-label="What the ground station shows at T+20 seconds">
+        <span class="hd">Ground station display at T+20 s</span>
+        <div class="row"><span>GNSS fix</span><span>3D ✓</span></div>
+        <div class="row"><span>Satellites in use</span><span>11 ✓</span></div>
+        <div class="row"><span>Position dilution (HDOP)</span><span>0.8 ✓</span></div>
+        <div class="row"><span>OSNMA authentication</span><span>PASS ✓</span></div>
+        <div class="row"><span>RAIM integrity</span><span>PASS ✓</span></div>
+        <div class="row"><span>Map</span><span>Plausible ✓</span></div>
+        <div class="truth"><b>Reality:</b> the drone is 2 km from where every indicator says it is. The operator may be kilometres away, watching a screen that looks normal.</div>
+      </div>
+    </div>
+
+    <div class="part">
+      <h3 style="margin-bottom:8px">Which checks catch meaconing as it happens?</h3>
+      <p class="lede" style="margin-bottom:20px">Most anti-spoofing tools were designed to catch forged signals. Against a genuine signal replayed, most of them have little to grab onto.</p>
+      <div class="tablebox">
+        <table style="min-width:720px">
+          <thead><tr><th scope="col">Check</th><th scope="col">How it works</th><th scope="col">Catches meaconing in real time?</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Integrity monitoring (RAIM)</th><td>Flags a satellite that disagrees with the rest.</td><td><span class="verdict v-no"><i></i>No.</span> All satellites arrive through the same relay and agree.</td></tr>
+            <tr><th scope="row">Signal authentication (OSNMA, Chimera)</th><td>Verifies a cryptographic signature in the message.</td><td><span class="verdict v-no"><i></i>No.</span> The signatures are real.</td></tr>
+            <tr><th scope="row">Multi-constellation, multi-frequency</th><td>Compares GPS, Galileo, BeiDou and several bands.</td><td><span class="verdict v-some"><i></i>Partly.</span> A wideband relay copies every band at once.</td></tr>
+            <tr><th scope="row">Signal-strength monitoring</th><td>Watches for signals that are suspiciously strong.</td><td><span class="verdict v-some"><i></i>Sometimes.</span> A careful attacker keeps power close to normal.</td></tr>
+            <tr><th scope="row">Clock-jump monitoring</th><td>Watches for sudden steps in the receiver's clock.</td><td><span class="verdict v-some"><i></i>Sometimes.</span> A gradual takeover hides inside normal clock noise.</td></tr>
+            <tr><th scope="row">Direction finding (antenna arrays)</th><td>Detects that every signal comes from one direction.</td><td><span class="verdict v-some"><i></i>Often.</span> Heavy, costly and rare on small drones.</td></tr>
+            <tr><th scope="row">Inertial sensors only</th><td>Compares GNSS with measured motion.</td><td><span class="verdict v-some"><i></i>Sometimes.</span> Small-drone sensors drift quickly and get pulled along by the GNSS.</td></tr>
+            <tr><th scope="row">Independent absolute navigation</th><td>Compares GNSS with terrain, imagery and inertial motion.</td><td><span class="verdict v-yes"><i></i>Yes.</span> The terrain below doesn't match the reported position.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="part">
+      <h3 style="margin-bottom:20px">Tell-tale signs for operators</h3>
+      <div class="tells">
+        <div class="tell"><b>Position stuck in place</b><p>GNSS reports almost no movement while airspeed and motor data say the vehicle is flying.</p></div>
+        <div class="tell"><b>A suspiciously fixed location</b><p>Several vehicles report the same point, often a hilltop, building or vessel.</p></div>
+        <div class="tell"><b>Small clock or time jumps</b><p>The receiver's time steps by microseconds, or log timestamps don't match other systems.</p></div>
+        <div class="tell"><b>Every satellite equally strong</b><p>Real satellites vary with elevation. A relay makes them look similar.</p></div>
+        <div class="tell"><b>Map vs camera mismatch</b><p>The video feed shows a road or coastline that shouldn't be there.</p></div>
+        <div class="tell"><b>Failsafes acting oddly</b><p>Geofence alarms, or return-to-home heading in an unexpected direction.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="autonomy" aria-labelledby="h-auto">
+  <div class="wrap">
+    <div class="sechead">
+      <p class="eyebrow">Crewed aircraft vs autonomous platforms</p>
+      <h2 id="h-auto">Piloted aircraft cope with skill, and lots of backup</h2>
+      <p class="lede">Crewed aircraft meet GNSS interference every day and keep flying safely. They have trained people on board, layers of independent instruments, ground infrastructure and air traffic control behind them.</p>
+    </div>
+    <div class="fleet">
+      <div><b>Wide-body airliners</b><p>Long-haul twin-aisle jets carrying roughly 250 to 500+ passengers across oceans and continents.</p></div>
+      <div><b>Narrow-body airliners</b><p>Single-aisle jets for short and medium routes, roughly 120 to 240 seats. Most of the world's flights.</p></div>
+      <div><b>Regional jets and turboprops</b><p>Smaller airliners linking regional airports, often at lower altitudes.</p></div>
+      <div><b>Business jets</b><p>Private and corporate aircraft flying the same airspace with airline-grade avionics.</p></div>
+      <div><b>Helicopters</b><p>Offshore transport, air ambulance, search and rescue, police and utility work.</p></div>
+      <div><b>Military transports and tankers</b><p>Large crewed aircraft that routinely fly near conflict zones.</p></div>
+      <div><b>General aviation</b><p>Light piston aircraft and training flights. They have fewer backups, but a pilot who can look outside.</p></div>
+      <div><b>Crewed special missions</b><p>Patrol, surveillance and calibration aircraft with mission crews and extra sensors.</p></div>
+    </div>
+    <div class="toolkit">
+      <div><b>Human instinct and judgement</b><p>Two trained pilots who notice when something doesn't add up: "The screen says we're over the sea, but the coast is right there."</p></div>
+      <div><b>Inertial reference systems</b><p>Airliners carry high-grade inertial systems. Modern units drift about 0.6 nautical miles per hour without any satellite help.</p></div>
+      <div><b>Ground radio aids</b><p>VOR, DME and ILS stations give position and approach guidance that don't depend on satellites.</p></div>
+      <div><b>Air traffic control radar</b><p>Controllers see the aircraft on radar and can give headings and warnings.</p></div>
+      <div><b>Procedures and training</b><p>Industry and regulator guidance, briefings on known hotspots, and checklists for GNSS loss.</p></div>
+      <div><b>A window</b><p>Coastlines, runways and cities give an instant reality check in good weather.</p></div>
+    </div>
+
+    <p class="question" id="h-q">But how does your <span>autonomous platform</span> handle it?</p>
+    <div class="tablebox vs">
+      <table style="min-width:640px">
+        <thead><tr><th scope="col">Layer of protection</th><th scope="col">Crewed aircraft</th><th scope="col">Typical autonomous drone</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Who notices?</th><td>Pilots on board, cross-checking constantly</td><td>Nobody on board. An operator, if any, watches a plausible-looking map from far away.</td></tr>
+          <tr><th scope="row">Backup position</th><td>Navigation-grade inertial systems</td><td>Small, low-cost motion sensors that drift quickly without correction</td></tr>
+          <tr><th scope="row">Ground radio aids</th><td>VOR, DME and ILS along routes and at airports</td><td>Usually none, and few reach low altitudes or remote areas</td></tr>
+          <tr><th scope="row">Outside help</th><td>Air traffic control and radar</td><td>Often beyond controlled airspace and radar cover</td></tr>
+          <tr><th scope="row">Reaction</th><td>Judgement, procedures, diversion</td><td>Autopilot logic that trusts GNSS by design</td></tr>
+          <tr><th scope="row">Failsafe</th><td>Crew decides where to go</td><td>Return-to-home steers by the same corrupted position</td></tr>
+          <tr><th scope="row">Against meaconing</th><td>Humans spot implausible positions</td><td>Every automated check passes, so the drone carries on</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="foot">Drones are already being lost to this in large numbers. In 2023 the Royal United Services Institute estimated Ukraine was losing about 10,000 drones a month, mostly to electronic warfare that targets navigation and control links.</p>
+
+    <div class="part">
+      <h3 style="margin-bottom:8px">Every class of drone is exposed, from hand-launched to MALE</h3>
+      <p class="lede" style="margin-bottom:22px">Military and civil operators often group uncrewed aircraft by size using NATO's classes. All of them rely on GNSS, and the larger they are, the more is at stake when it lies.</p>
+      <div class="ladder">
+        <div class="rung"><span class="cls">Class I · micro</span><b>Micro</b><span class="w">under 2 kg</span><p>Quadcopters for inspection, filming and short-range scouting.</p><div class="bar" style="width:20%"></div></div>
+        <div class="rung"><span class="cls">Class I · mini</span><b>Mini</b><span class="w">2–20 kg</span><p>Survey, mapping, delivery trials and hand-launched reconnaissance.</p><div class="bar" style="width:38%"></div></div>
+        <div class="rung"><span class="cls">Class I · small</span><b>Small</b><span class="w">20–150 kg</span><p>Long-range fixed-wing and VTOL survey, border and pipeline patrol.</p><div class="bar" style="width:56%"></div></div>
+        <div class="rung"><span class="cls">Class II</span><b>Tactical</b><span class="w">150–600 kg</span><p>Runway or catapult launched, many hours aloft for surveillance.</p><div class="bar" style="width:76%"></div></div>
+        <div class="rung"><span class="cls">Class III</span><b>MALE</b><span class="w">over 600 kg</span><p>Medium-altitude, long-endurance aircraft flying for a day or more.</p><div class="bar" style="width:100%"></div></div>
+      </div>
+      <p class="cover"><span>Navion Terra covers</span><em>micro to MALE</em></p>
+    </div>
+  </div>
+</section>
+
+<section id="navion" class="navion" aria-labelledby="h-nv">
+  <div class="wrap">
+    <div class="nv-hero">
+      <div>
+        <p class="eyebrow safe">The solution · Ultrakinematic</p>
+        <h2 id="h-nv">Navion Terra: <span>navigation that can't be fooled by an echo.</span></h2>
+        <div class="tags"><span>Meaconing proof</span><span>Anti-spoofing</span><span>Anti-jamming</span><span>GNSS-independent</span></div>
+      </div>
+      <p class="lede">Navion Terra is a resilient navigation system for drone operations at any scale, from small multirotors up to the MALE segment. It combines inertial, visual and terrain-referenced navigation, so a drone always knows where it is, even when satellite signals are jammed, faked or replayed.</p>
+    </div>
+
+    <div class="qcompare">
+      <div class="qbox old"><span class="hd">Conventional anti-spoofing asks</span><q>Is this signal genuine?</q><p>Against meaconing the answer is "yes", so the attack gets through.</p></div>
+      <div class="qbox new"><span class="hd">Navion Terra asks</span><q>Does this position match the world below me?</q><p>A replayed signal can fool a receiver. It can't move the hills, roads and coastlines under the drone.</p></div>
+    </div>
+
+    <ol class="stages">
+      <li><b>Detect</b><p>Continuously compares the GNSS position with terrain matches, camera views and the drone's own measured motion. In the incident above, the mismatch shows up as soon as the reported position leaves the real one.</p></li>
+      <li><b>Reject</b><p>Lowers the weight of, or completely rejects, the untrustworthy GNSS before it can pull the solution off course.</p></li>
+      <li><b>Navigate</b><p>Keeps an absolute position from terrain referencing and scene matching, at night, above cloud and in rain, while inertial and visual odometry fill the gaps.</p></li>
+      <li><b>Report</b><p>Tells the autopilot and operator exactly how far to trust the position, and which sources are healthy, deweighted or rejected.</p></li>
+    </ol>
+
+    <div class="refs">
+      <div class="ref"><code>INS</code><b>Inertial measurement</b><p>High-rate motion from accelerometers and gyroscopes.</p></div>
+      <div class="ref"><code>VIO</code><b>Visual odometry</b><p>Camera tracking of the ground that limits drift.</p></div>
+      <div class="ref"><code>TRN</code><b>Terrain referencing</b><p>Radar-altimeter height profiles matched to elevation maps for absolute position.</p></div>
+      <div class="ref"><code>SCN</code><b>Scene matching</b><p>Camera images matched to georeferenced satellite imagery.</p></div>
+      <div class="ref"><code>INT</code><b>Integrity monitoring</b><p>Scores every source and blocks anomalous ones before fusion.</p></div>
+      <div class="ref gn"><code>GNSS</code><b>Satellites, on probation</b><p>Used only while it agrees with everything else.</p></div>
+    </div>
+
+    <div class="specs" aria-label="Navion Terra specifications">
+      <div><span>Board mass</span><b>90 g</b></div>
+      <div><span>Peak power</span><b>20 W</b></div>
+      <div><span>Output rate</span><b>100–250 Hz</b></div>
+      <div><span>Outputs</span><b>Position · velocity · attitude · confidence</b></div>
+      <div><span>Sensors</span><b>Camera · radar altimeter · IMU · GNSS</b></div>
+      <div><span>Interfaces</span><b>Ethernet · CAN · UART · USB</b></div>
+      <div><span>Formats</span><b>NMEA · MAVLink · SDK</b></div>
+      <div><span>Kits</span><b>Development · Fly-ready</b></div>
+    </div>
+    <p class="foot">At 90 g and 20 W it fits small airframes. Standard interfaces and NMEA or MAVLink output let it plug into common autopilots and the mission computers of larger tactical and MALE platforms. Night, cloud and rain operation relies on the terrain-referenced path with suitable elevation data for the area.</p>
+
+    <div class="contact">
+      <div><h3>Protect your drone operations</h3><p>Request a technical briefing on Navion Terra from Ultrakinematic.</p></div>
+      <div class="mail"><code id="mailaddr">contact@ultrakinematic.com</code><button type="button" id="copyMail">Copy email</button><a href="https://ultrakinematic.com" target="_blank" rel="noopener">ultrakinematic.com</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" aria-labelledby="h-faq">
+  <div class="wrap">
+    <div class="sechead"><p class="eyebrow">Frequently asked questions</p><h2 id="h-faq">Meaconing questions, plainly answered</h2></div>
+    <div class="faq">
+      <article class="qa"><h3>What is meaconing in simple terms?</h3><p>Meaconing is recording or capturing real satellite navigation signals and re-broadcasting them. A receiver that listens to the copy calculates the position of the attacker's antenna instead of its own, while believing the result is correct.</p></article>
+      <article class="qa"><h3>How do you pronounce meaconing?</h3><p>MEE-kuh-ning. The word comes from "meacon", short for "masking beacon".</p></article>
+      <article class="qa"><h3>Where does the word meaconing come from?</h3><p>From the Second World War. In 1940–41 the Royal Air Force's No. 80 (Signals) Wing used "masking beacons" that picked up German navigation beacon signals and re-radiated them from Britain to mislead Luftwaffe bombers.</p></article>
+      <article class="qa"><h3>Is meaconing the same as GPS spoofing?</h3><p>It is a type of spoofing, but a special one. Ordinary spoofing creates fake signals. Meaconing re-sends genuine ones. That is why it passes authenticity checks that can reveal ordinary spoofing.</p></article>
+      <article class="qa"><h3>Why doesn't signal authentication like OSNMA stop meaconing?</h3><p>Authentication proves a message came from a real satellite. A replayed message did come from a real satellite. Tests have shown OSNMA-enabled receivers reporting meaconed signals as authentic.</p></article>
+      <article class="qa"><h3>Why doesn't the relay delay show up as an error?</h3><p>The relay adds the same delay to every satellite's signal. A receiver already solves for its own clock error, so it treats the delay as its clock running late and reports a clean position fix.</p></article>
+      <article class="qa"><h3>How far off can meaconing put a drone?</h3><p>With a live relay, the drone's reported position becomes the attacker's receiving antenna. The error equals the distance between the drone and that antenna, from metres to kilometres. With record-and-replay or long-distance relay it can be hundreds of kilometres.</p></article>
+      <article class="qa"><h3>Can meaconing be detected in real time?</h3><p>It is very hard with GNSS checks alone, because the signals are genuine and consistent. Clues like clock jumps or uniform signal strength can be hidden by a careful attacker. The reliable method is comparing GNSS with independent absolute navigation such as terrain referencing and scene matching.</p></article>
+      <article class="qa"><h3>Are drones more at risk than airliners?</h3><p>Yes. Airliners have trained pilots, navigation-grade inertial systems, ground radio aids and air traffic control. Most drones rely on GNSS as their only absolute position, have no one on board, and run autopilots and failsafes that trust GNSS.</p></article>
+      <article class="qa"><h3>Is meaconing illegal?</h3><p>In most countries, transmitting on GNSS frequencies without authorisation is illegal, and GNSS repeaters are tightly regulated. Most large-scale interference today is attributed to military electronic warfare.</p></article>
+      <article class="qa"><h3>How can drone operators protect against meaconing?</h3><p>Fit navigation that does not depend on GNSS for absolute position, cross-check GNSS against it, avoid relying on GNSS alone for return-to-home and geofencing, and log receiver data so incidents can be analysed.</p></article>
+      <article class="qa"><h3>What is Navion Terra?</h3><p>Navion Terra by Ultrakinematic is a resilient navigation system for drones from small multirotors up to the MALE class. It fuses inertial, visual, scene-matching and terrain-referenced navigation, rejects jammed, spoofed or meaconed GNSS, and outputs position with a confidence estimate at 100–250 Hz.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="glossary" aria-labelledby="h-gl">
+  <div class="wrap">
+    <div class="sechead"><p class="eyebrow">Glossary</p><h2 id="h-gl">Words you'll meet</h2></div>
+    <dl class="gloss">
+      <div><dt>Global Navigation Satellite System<abbr>GNSS</abbr></dt><dd>The family of satellite navigation systems: GPS, Galileo, GLONASS and BeiDou.</dd></div>
+      <div><dt>Receiver</dt><dd>The chip in a phone, car, drone or aircraft that listens to satellites and calculates position and time.</dd></div>
+      <div><dt>Clock error</dt><dd>How far the receiver's cheap clock is off. Solved using a fourth satellite, and where meaconing's delay hides.</dd></div>
+      <div><dt>Meaconing</dt><dd>Capturing genuine GNSS signals and re-broadcasting them to mislead receivers.</dd></div>
+      <div><dt>Meaconer</dt><dd>The equipment that performs meaconing: a receiving antenna, an amplifier and a transmitting antenna.</dd></div>
+      <div><dt>Replay attack</dt><dd>Recording signals and playing them back later. A form of meaconing.</dd></div>
+      <div><dt>Spoofing</dt><dd>Broadcasting fake GNSS signals to make a receiver report a false position or time.</dd></div>
+      <div><dt>Jamming</dt><dd>Broadcasting noise on GNSS frequencies so receivers cannot hear satellites.</dd></div>
+      <div><dt>Navigation Message Authentication<abbr>OSNMA</abbr></dt><dd>Galileo's digital signature for its open signal. Stops forged messages, not copied ones.</dd></div>
+      <div><dt>Receiver Autonomous Integrity Monitoring<abbr>RAIM</abbr></dt><dd>A receiver check that spots one satellite disagreeing with the others.</dd></div>
+      <div><dt>Inertial Measurement Unit<abbr>IMU</abbr></dt><dd>Accelerometers and gyroscopes that measure motion. Can't be jammed, but drift over time.</dd></div>
+      <div><dt>Terrain-Referenced Navigation<abbr>TRN</abbr></dt><dd>Finding position by matching measured ground height to an elevation map.</dd></div>
+      <div><dt>Scene matching</dt><dd>Finding position by matching camera images to satellite imagery.</dd></div>
+      <div><dt>Medium Altitude Long Endurance<abbr>MALE</abbr></dt><dd>Large uncrewed aircraft flying at medium altitude for a day or more. NATO Class III.</dd></div>
+      <div><dt>Return-to-home<abbr>RTH</abbr></dt><dd>A drone failsafe that flies back to the launch point, usually guided by GNSS.</dd></div>
+    </dl>
+    <p class="foot">Page last reviewed <time datetime="2026-10-06">6 October 2026</time>.</p>
+  </div>
+</section>
+
+<section class="sources" aria-labelledby="h-src">
+  <div class="wrap">
+    <h2 id="h-src" style="font-size:1.6rem;margin-bottom:18px">Sources</h2>
+    <ol>
+      <li><a href="https://ops.group/dashboard/wp-content/uploads/2024/09/GPS-Spoofing-Final-Report-OPSGROUP-WG-OG24.pdf" target="_blank" rel="noopener">OPSGROUP, GPS Spoofing Workgroup Final Report (2024)</a></li>
+      <li><a href="https://windward.ai/blog/middle-east-on-the-precipice-gps-jamming-in-the-arabian-gulf-and-strait-of-hormuz-disrupts-970-ships-daily/" target="_blank" rel="noopener">Windward, 970 ships daily (June 2025)</a></li>
+      <li><a href="https://www.forbes.com/sites/davidhambling/2023/05/22/ukraine-drones-losses-are-10000-per-month/" target="_blank" rel="noopener">Forbes on RUSI "Meatgrinder" report: 10,000 drones a month (2023)</a></li>
+      <li><a href="https://www.unmannedairspace.info/counter-uas-systems-and-policies/ukrainian-drone-losses-at-10000-a-month-new-research-from-rusi/" target="_blank" rel="noopener">Unmanned Airspace, Ukrainian drone losses (RUSI)</a></li>
+      <li><a href="https://skybrary.aero/articles/inertial-reference-system-irs" target="_blank" rel="noopener">SKYbrary, Inertial Reference System</a></li>
+      <li><a href="https://ic.iata.org/sites/default/files/iata_sih_document_attachment/IATA%20Safety%20Risk%20Assessment%20-%20GNSS%20Interference%20V5.pdf" target="_blank" rel="noopener">IATA, Safety risk assessment: GNSS interference</a></li>
+      <li><a href="https://web.stanford.edu/group/scpnt/gpslab/pubs/books/Chapter3ConventionalNavigation.pdf" target="_blank" rel="noopener">Stanford GPS Lab, Conventional navigation aids</a></li>
+      <li><a href="https://insidegnss.com/osnma-necessary-but-not-sufficient-for-gnss-security/" target="_blank" rel="noopener">Inside GNSS, OSNMA: necessary but not sufficient</a></li>
+      <li><a href="https://navi.ion.org/content/73/1/navi.738" target="_blank" rel="noopener">NAVIGATION (ION), Multipath situation under meaconing</a></li>
+      <li><a href="https://arxiv.org/pdf/2202.11341" target="_blank" rel="noopener">arXiv, Distributed and mobile message-level relaying of GNSS signals</a></li>
+      <li><a href="https://www.researchgate.net/publication/265008517_Detecting_Meaconing_Attacks_by_Analysing_the_Clock_Bias_of_Gnss_Receivers" target="_blank" rel="noopener">Detecting meaconing attacks by analysing receiver clock bias</a></li>
+      <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7070933/" target="_blank" rel="noopener">Sensors, Machine learning spoofing detection on real meaconing data</a></li>
+      <li><a href="https://www.sbg-systems.com/glossary/meaconing/" target="_blank" rel="noopener">SBG Systems, Meaconing glossary</a></li>
+      <li><a href="https://ultrakinematic.com" target="_blank" rel="noopener">Ultrakinematic, Navion Terra</a></li>
+      <li><a href="https://gnssdenial.com" target="_blank" rel="noopener">gnssdenial.com, full GNSS threat overview and data</a></li>
+    </ol>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>meaconing.com · Meaconing explained for everyone · Sister site: <a href="https://gnssdenial.com">gnssdenial.com</a></span>
+    <span>Navion Terra is a product of Ultrakinematic.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var cb = document.getElementById('copyMail');
+  cb.addEventListener('click', function(){
+    var el = document.getElementById('mailaddr');
+    var fb = function(){ var r=document.createRange(); r.selectNodeContents(el); var s=getSelection(); s.removeAllRanges(); s.addRange(r); cb.textContent='Selected'; };
+    try { navigator.clipboard.writeText(el.textContent).then(function(){ cb.textContent='Copied'; setTimeout(function(){cb.textContent='Copy email'},1800); }, fb); } catch(e){ fb(); }
+  });
+
+  var cv = document.getElementById('rp'), ctx = cv.getContext('2d');
+  var scrub = document.getElementById('scrub'), playBtn = document.getElementById('play'), icon = document.getElementById('playicon');
+  var W=0, H=0, u=0.7, playing=false, last=0, C={};
+  var P1=0.2, P2=0.34, P3=0.46, FLIGHT_S=180;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var CAPS = [
+    'The drone navigates by GPS. Its receiver hears the real satellites, 20,000 km overhead.',
+    'An attacker’s antenna on the hill records the same real signals and re-sends them, slightly louder. Nothing changes yet.',
+    'The receiver’s tracking slides from the faint sky signal to the louder copy. Every message is still genuine.',
+    'The receiver now reports the attacker’s location. All checks stay green. A GNSS-only drone has no way to tell.'
+  ];
+  function readC(){ var s=getComputedStyle(document.documentElement); ['ink','muted','line','echo','echo-fill','safe','surface','sunk'].forEach(function(k){ C[k]=s.getPropertyValue('--'+k).trim(); }); }
+  function truth(t){ return {x:W*0.07+t*W*0.86, y:H*0.62+Math.sin(t*Math.PI*1.6+0.4)*H*0.14}; }
+  function tower(){ return {x:W*0.3, y:H*0.24}; }
+  function nz(t,s){ return Math.sin(t*38+s)*0.6+Math.sin(t*17+s*1.7)*0.4; }
+  function sm(a,b,t){ var k=Math.min(1,Math.max(0,(t-a)/(b-a))); return k*k*(3-2*k); }
+  function gnss(t){ var p=truth(t), M=tower(), k=sm(P2,P3,t); return {x:p.x+(M.x+6-p.x)*k+nz(t,1)*1.6, y:p.y+(M.y+4-p.y)*k+nz(t,2)*1.6}; }
+  function nav(t){ var p=truth(t), b=0; if(t>P2){ var z=(t-P2-0.03)/0.03; b=Math.exp(-z*z)*5; } return {x:p.x+nz(t,5)*2, y:p.y+nz(t,6)*2-b}; }
+  function mpp(){ return 6000/(W*0.86); }
+  function dist(a,b){ return Math.hypot(a.x-b.x,a.y-b.y)*mpp(); }
+  function size(){ var r=cv.getBoundingClientRect(), d=Math.min(window.devicePixelRatio||1,2); W=r.width; H=r.height; cv.width=Math.round(W*d); cv.height=Math.round(H*d); ctx.setTransform(d,0,0,d,0,0); draw(); }
+  function line(f,t1,col,a,w,dash){ ctx.save(); ctx.globalAlpha=a; ctx.strokeStyle=col; ctx.lineWidth=w; ctx.setLineDash(dash||[]); ctx.beginPath(); var n=Math.max(2,Math.round(t1*260)); for(var i=0;i<=n;i++){ var p=f(i/260); i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y);} ctx.stroke(); ctx.restore(); }
+  function dot(p,col,r){ ctx.save(); ctx.fillStyle=col; ctx.strokeStyle=C.surface; ctx.lineWidth=2; ctx.beginPath(); ctx.arc(p.x,p.y,r,0,7); ctx.fill(); ctx.stroke(); ctx.restore(); }
+  function draw(){
+    if(!W) return;
+    ctx.fillStyle=C.surface; ctx.fillRect(0,0,W,H);
+    // terrain contours
+    ctx.save(); ctx.strokeStyle=C.line; ctx.lineWidth=1;
+    for(var k=0;k<9;k++){ ctx.beginPath(); for(var x=0;x<=W;x+=8){ var y=H*(0.08+k*0.115)+Math.sin(x/W*5+k*1.3)*H*0.04+Math.sin(x/W*11+k)*H*0.015; x?ctx.lineTo(x,y):ctx.moveTo(x,y);} ctx.stroke(); }
+    // hill rings around tower
+    var M=tower(); for(var r=1;r<=4;r++){ ctx.beginPath(); ctx.ellipse(M.x,M.y+6,r*W*0.028,r*H*0.04,0,0,7); ctx.stroke(); }
+    ctx.restore();
+    // echo
+    var on=sm(P1-0.02,P1+0.04,u), cap=sm(P2,P3,u);
+    if(on>0){
+      ctx.save(); ctx.strokeStyle=C['echo-fill'];
+      var ph = playing ? (performance.now()/1000)%1 : 0.35;
+      for(var i=0;i<3;i++){ var rr=8+((i/3+ph)%1)*(30+cap*40); ctx.globalAlpha=on*0.7*(1-(rr-8)/(30+cap*40)); ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(M.x,M.y,rr,0,7); ctx.stroke(); }
+      ctx.globalAlpha=on*(0.35+cap*0.5); ctx.setLineDash([5,5]); ctx.lineWidth=1.5; var d=truth(u); ctx.beginPath(); ctx.moveTo(M.x,M.y); ctx.lineTo(d.x,d.y); ctx.stroke();
+      ctx.restore();
+    }
+    // tower icon
+    ctx.save(); ctx.strokeStyle=C.ink; ctx.lineWidth=1.6; ctx.beginPath(); ctx.moveTo(M.x-7,M.y+22); ctx.lineTo(M.x,M.y); ctx.lineTo(M.x+7,M.y+22); ctx.moveTo(M.x-4,M.y+12); ctx.lineTo(M.x+4,M.y+12); ctx.stroke();
+    ctx.fillStyle=on>0?C['echo-fill']:C.muted; ctx.beginPath(); ctx.arc(M.x,M.y,3.5,0,7); ctx.fill();
+    ctx.fillStyle=C.ink; ctx.font='500 10px "JetBrains Mono", monospace'; ctx.textAlign='center'; ctx.fillText('MEACONER', M.x, M.y+36); ctx.restore();
+    // paths
+    line(truth,1,C.muted,.5,1.4,[2,5]);
+    line(gnss,u,C['echo-fill'],1,2.6);
+    line(nav,u,C.safe,1,2.6);
+    dot(truth(u),C.ink,4);
+    dot(gnss(u),C['echo-fill'],6);
+    dot(nav(u),C.safe,6);
+    // labels
+    ctx.save(); ctx.font='10px "JetBrains Mono", monospace'; ctx.fillStyle=C.muted; ctx.textAlign='left';
+    ctx.fillText('· · true route', 12, H-12);
+    var px=1000/mpp(); ctx.strokeStyle=C.muted; ctx.lineWidth=1.4; ctx.beginPath(); ctx.moveTo(W-14-px,16); ctx.lineTo(W-14,16); ctx.moveTo(W-14-px,12); ctx.lineTo(W-14-px,20); ctx.moveTo(W-14,12); ctx.lineTo(W-14,20); ctx.stroke(); ctx.textAlign='right'; ctx.fillText('1 km',W-14,32);
+    ctx.restore();
+    ui();
+  }
+  function fmt(m){ return m>=1000?(m/1000).toFixed(1)+' km off':Math.round(m)+' m off'; }
+  var lastPh=-1;
+  function ui(){
+    var ph = u<P1?0:u<P2?1:u<P3?2:3;
+    if(ph!==lastPh){ lastPh=ph; document.querySelectorAll('.ph').forEach(function(e,i){ e.classList.toggle('on',i===ph); }); document.getElementById('cap').textContent=CAPS[ph]; }
+    document.getElementById('eG').textContent=fmt(dist(gnss(u),truth(u)));
+    document.getElementById('eN').textContent=fmt(dist(nav(u),truth(u)));
+    var s=Math.round(u*FLIGHT_S); document.getElementById('clock').textContent='T+'+String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+    var a=document.getElementById('nt1'), b=document.getElementById('nt2'), c=document.getElementById('nt3');
+    var bad = u>P2+0.01, rej = u>P2+0.045;
+    a.textContent = bad?'Disagree':'Agree'; b.textContent = bad?'Disagree':'Agree'; c.textContent = rej?'Rejected':(bad?'Lowering':'Normal');
+    [a,b,c].forEach(function(e){ e.classList.toggle('warn', bad); });
+    scrub.value=Math.round(u*1000);
+  }
+  function setPlay(p){ playing=p; icon.setAttribute('d', p?'M3 1.5h3v11H3zM8 1.5h3v11H8z':'M3 1.5v11l9-5.5z'); playBtn.setAttribute('aria-label', p?'Pause replay':'Play replay'); if(p){ last=0; if(u>=0.999) u=0; requestAnimationFrame(tick);} }
+  function tick(now){ if(!playing) return; if(!last) last=now; u+=(now-last)/14000; last=now; if(u>=1){ u=1; draw(); setPlay(false); return; } draw(); requestAnimationFrame(tick); }
+  playBtn.addEventListener('click', function(){ setPlay(!playing); });
+  scrub.addEventListener('input', function(){ setPlay(false); u=scrub.value/1000; draw(); });
+  readC(); size();
+  if(window.ResizeObserver) new ResizeObserver(size).observe(cv); else addEventListener('resize',size);
+  var re=function(){ readC(); draw(); };
+  var mq=matchMedia('(prefers-color-scheme: dark)'); if(mq.addEventListener) mq.addEventListener('change',re);
+  new MutationObserver(re).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  if(!reduce) setTimeout(function(){ u=0; draw(); setPlay(true); }, 1500);
+})();
+</script>
+</body>
+</html>

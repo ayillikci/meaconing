@@ -1,0 +1,31 @@
+# Meaconing (meaconing.com)
+
+> Beginner-friendly explainer on meaconing: capturing genuine GNSS (GPS, Galileo, GLONASS, BeiDou) signals and re-broadcasting them so receivers compute a false position. Covers GNSS basics, a short overview of every GNSS threat, a deep dive on meaconing (history, forms, why receivers believe it, why it is hard to detect in real time), how crewed aircraft cope versus autonomous drones, and how Ultrakinematic's Navion Terra protects drone operations at any scale up to the MALE segment.
+
+Key facts:
+- Meaconing re-sends genuine signals, so cryptographic authentication (Galileo OSNMA) and integrity monitoring (RAIM) report them as valid.
+- A relay adds the same delay to every satellite; the receiver absorbs it as its own clock error and reports the attacker's antenna position as a clean fix.
+- The term comes from WWII "masking beacons" used by the RAF's No. 80 (Signals) Wing in 1940–41.
+- Scale of GNSS attack: ~1,500 flights/day spoofed by August 2024 (OPSGROUP); 970 ships/day jammed in the Gulf, June 2025 (Windward); ~10,000 drones/month lost by Ukraine in 2023, mostly to electronic warfare (RUSI).
+- Reliable real-time detection requires comparing GNSS against independent absolute navigation (terrain referencing, scene matching, inertial).
+
+## Main content
+
+- [Full page](https://meaconing.com/): Explainer with interactive incident replay
+- [Full text for LLMs](https://meaconing.com/llms-full.txt): Complete page content as Markdown
+
+## Sections
+
+- [GNSS basics](https://meaconing.com/#basics): How satellite positioning works, and the clock error meaconing exploits
+- [All GNSS threats](https://meaconing.com/#threats): Jamming, spoofing, meaconing, blockage, multipath, space weather, system faults, accidental interference
+- [Meaconing deep dive](https://meaconing.com/#deep-dive): Spoofing vs meaconing, history, three forms, why receivers believe it
+- [Real-time detection](https://meaconing.com/#detection): Second-by-second incident, which checks work, tell-tale signs
+- [Crewed vs autonomous](https://meaconing.com/#autonomy): How airliners cope, why drones are exposed, NATO drone classes up to MALE
+- [Navion Terra](https://meaconing.com/#navion): GNSS-independent navigation by Ultrakinematic
+- [FAQ](https://meaconing.com/#faq)
+- [Glossary](https://meaconing.com/#glossary)
+
+## Optional
+
+- [gnssdenial.com](https://gnssdenial.com/): Sister site with the full GNSS denial overview, statistics and incident timeline
+- [Ultrakinematic](https://ultrakinematic.com): Manufacturer of Navion Terra; contact@ultrakinematic.com
