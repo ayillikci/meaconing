@@ -10,6 +10,8 @@ Upload every file **and folder** in this directory to the **root** of meaconing.
 |---|---|
 | `index.html` | The site, with title, description, canonical URL, Open Graph and X/Twitter tags, and JSON-LD (WebSite, TechArticle, FAQPage, DefinedTermSet glossary, Product for Navion Terra). All text is in the HTML. |
 | `what-is-meaconing/`, `meaconing-vs-spoofing/`, `history-of-meaconing/`, `detect-meaconing/`, `osnma-and-meaconing/`, `meaconing-and-drones/`, `about/` | One page per question, each with its own title, canonical URL, JSON-LD (TechArticle, FAQPage, BreadcrumbList, entity links to Wikipedia and Wikidata) and a visible "last reviewed" date. `about/` carries authorship, sourcing and the Navion Terra / Ultrakinematic disclosure. |
+| `privacy/` | Privacy notice: no cookies, no analytics, fonts self-hosted. Add the controller's name and postal address under "Who is responsible" in the generated page when available. |
+| `fonts/` | Self-hosted Big Shoulders Display, Atkinson Hyperlegible and JetBrains Mono (SIL Open Font License, see `fonts/NOTICE.txt`). Do not switch back to Google Fonts: it sends visitors' IP addresses to Google and conflicts with the privacy notice. |
 | `<slug>.md` (for example `what-is-meaconing.md`) | Markdown copy of each guide for AI assistants, linked from the page with `rel="alternate"`. |
 | `0fcfd9ccd586edc4438c78cc74876257.txt` | IndexNow key file. Keep it at the root so Bing and other IndexNow engines can verify ownership. |
 | `robots.txt` | Allows all search engines and explicitly allows AI crawlers. Points to the sitemap. |

@@ -34,6 +34,7 @@ Key facts:
 - [Does OSNMA stop meaconing?](https://meaconing.com/osnma-and-meaconing/): OSNMA proves a message came from a real satellite, and a replayed message did. Why signal authentication and RAIM integrity checks do not stop meaconing, and what does.
 - [Meaconing and drones](https://meaconing.com/meaconing-and-drones/): Why drones from micro to MALE class are more exposed to meaconing than crewed aircraft, what airliners have that drones lack, and how operators can protect against it.
 - [About meaconing.com](https://meaconing.com/about/): Purpose, sources, disclosures and contact
+- [Privacy notice](https://meaconing.com/privacy/): No cookies, no analytics or tracking; what is processed and GDPR rights
 
 ## Optional
 

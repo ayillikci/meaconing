@@ -1,0 +1,10 @@
+Fonts hosted on meaconing.com so that visitors' browsers do not contact third-party font servers.
+
+- Big Shoulders Display (variable)  https://fonts.google.com/specimen/Big+Shoulders+Display
+- Atkinson Hyperlegible              https://fonts.google.com/specimen/Atkinson+Hyperlegible
+- JetBrains Mono                     https://fonts.google.com/specimen/JetBrains+Mono
+
+All three are licensed under the SIL Open Font License, Version 1.1:
+https://openfontlicense.org/ (full text: https://scripts.sil.org/OFL)
+Copyright remains with each family's Project Authors. The fonts are redistributed unmodified
+apart from being split into Latin and Latin-Extended subsets, as served by Google Fonts.
