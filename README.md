@@ -28,3 +28,14 @@ Upload every file in this folder to the **root** of meaconing.com. Any static ho
 - Keep the content different. meaconing.com goes deep on one attack for beginners; gnssdenial.com is the broad, data-heavy overview. Don't copy sections between them.
 - When you update figures, change the dates in `index.html` (`dateModified`, `article:modified_time`, "Page last reviewed"), `sitemap.xml` and `llms-full.txt`.
 - Links from relevant outside sites help most. Ask Ultrakinematic to link to both domains.
+
+## Hosting on Cloudflare (Workers static assets)
+
+This repo deploys as-is; `wrangler.jsonc` and `.assetsignore` are already set up.
+
+1. Cloudflare dashboard → **Workers & Pages → Create → Import a repository** → pick `ayillikci/meaconing`, production branch `main`. Build command: empty. Deploy command: `npx wrangler deploy`.
+2. Worker → **Settings → Domains & Routes → Add → Custom domain**: `meaconing.com` and `www.meaconing.com`. Since the domain is already on Cloudflare, DNS records and TLS certificates are created automatically.
+3. Redirect `www` to the apex: **Rules → Redirect Rules** → hostname equals `www.meaconing.com` → dynamic redirect to `concat("https://meaconing.com", http.request.uri.path)`, status 301.
+4. **SSL/TLS → Edge Certificates → Always Use HTTPS: on.** Then follow the "After uploading" steps above (remove any old redirect to gnssdenial.com, turn off Block AI bots, etc.).
+
+Every push to `main` redeploys automatically.
