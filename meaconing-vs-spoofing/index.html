@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meaconing vs GPS Spoofing: What&#x27;s the Difference?</title>
+<meta name="description" content="Spoofing forges fake GNSS signals; meaconing replays genuine ones. A side-by-side comparison of meaconing, spoofing and jamming, and why meaconing passes authentication checks.">
+<link rel="canonical" href="https://meaconing.com/meaconing-vs-spoofing/">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="author" content="meaconing.com">
+<meta name="theme-color" content="#f4f5fa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c0f2b" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="meaconing.com">
+<meta property="og:title" content="Meaconing vs GPS Spoofing: What&#x27;s the Difference?">
+<meta property="og:description" content="Spoofing forges fake GNSS signals; meaconing replays genuine ones. A side-by-side comparison of meaconing, spoofing and jamming, and why meaconing passes authentication checks.">
+<meta property="og:url" content="https://meaconing.com/meaconing-vs-spoofing/">
+<meta property="og:image" content="https://meaconing.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-10-07">
+<meta property="article:modified_time" content="2026-10-07">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Meaconing vs GPS Spoofing: What&#x27;s the Difference?">
+<meta name="twitter:description" content="Spoofing forges fake GNSS signals; meaconing replays genuine ones. A side-by-side comparison of meaconing, spoofing and jamming, and why meaconing passes authentication checks.">
+<meta name="twitter:image" content="https://meaconing.com/og-image.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="alternate" type="text/markdown" title="Markdown version" href="/meaconing-vs-spoofing.md">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebSite",
+   "@id": "https://meaconing.com/#website",
+   "url": "https://meaconing.com/",
+   "name": "meaconing.com",
+   "alternateName": "Meaconing explained",
+   "inLanguage": "en",
+   "publisher": {
+    "@id": "https://meaconing.com/#org"
+   }
+  },
+  {
+   "@type": "Organization",
+   "@id": "https://meaconing.com/#org",
+   "name": "meaconing.com",
+   "url": "https://meaconing.com/",
+   "logo": "https://meaconing.com/icon-512.png",
+   "sameAs": [
+    "https://gnssdenial.com/"
+   ],
+   "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "editorial",
+    "email": "contact@meaconing.com"
+   }
+  },
+  {
+   "@type": "TechArticle",
+   "@id": "https://meaconing.com/meaconing-vs-spoofing/#article",
+   "url": "https://meaconing.com/meaconing-vs-spoofing/",
+   "mainEntityOfPage": "https://meaconing.com/meaconing-vs-spoofing/",
+   "headline": "Meaconing vs GPS spoofing",
+   "name": "Meaconing vs GPS Spoofing: What's the Difference?",
+   "description": "Spoofing forges fake GNSS signals; meaconing replays genuine ones. A side-by-side comparison of meaconing, spoofing and jamming, and why meaconing passes authentication checks.",
+   "inLanguage": "en",
+   "datePublished": "2026-10-07",
+   "dateModified": "2026-10-07",
+   "image": "https://meaconing.com/og-image.png",
+   "author": {
+    "@id": "https://meaconing.com/#org"
+   },
+   "publisher": {
+    "@id": "https://meaconing.com/#org"
+   },
+   "isPartOf": {
+    "@id": "https://meaconing.com/#website"
+   },
+   "breadcrumb": {
+    "@id": "https://meaconing.com/meaconing-vs-spoofing/#breadcrumb"
+   },
+   "proficiencyLevel": "Beginner",
+   "about": [
+    {
+     "@type": "Thing",
+     "name": "Meaconing",
+     "sameAs": [
+      "https://en.wikipedia.org/wiki/Meaconing",
+      "https://www.wikidata.org/wiki/Q6803124"
+     ]
+    },
+    {
+     "@type": "Thing",
+     "name": "GNSS spoofing",
+     "sameAs": [
+      "https://en.wikipedia.org/wiki/GNSS_spoofing",
+      "https://www.wikidata.org/wiki/Q1486517"
+     ]
+    },
+    {
+     "@type": "Thing",
+     "name": "Replay attack",
+     "sameAs": [
+      "https://en.wikipedia.org/wiki/Replay_attack",
+      "https://www.wikidata.org/wiki/Q1756025"
+     ]
+    }
+   ],
+   "citation": [
+    "https://www.sbg-systems.com/glossary/meaconing/",
+    "https://insidegnss.com/osnma-necessary-but-not-sufficient-for-gnss-security/",
+    "https://arxiv.org/pdf/2202.11341",
+    "https://ic.iata.org/sites/default/files/iata_sih_document_attachment/IATA%20Safety%20Risk%20Assessment%20-%20GNSS%20Interference%20V5.pdf",
+    "https://ops.group/dashboard/wp-content/uploads/2024/09/GPS-Spoofing-Final-Report-OPSGROUP-WG-OG24.pdf"
+   ],
+   "relatedLink": [
+    "https://meaconing.com/what-is-meaconing/",
+    "https://meaconing.com/osnma-and-meaconing/",
+    "https://meaconing.com/detect-meaconing/",
+    "https://meaconing.com/"
+   ],
+   "text": "Spoofing forges, meaconing copies. A spoofer builds fake satellite signals from scratch. A meaconer re-sends real ones. Meaconing is a special type of spoofing, and it is harder to catch because the messages, codes and digital signatures are all genuine."
+  },
+  {
+   "@type": "BreadcrumbList",
+   "@id": "https://meaconing.com/meaconing-vs-spoofing/#breadcrumb",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "meaconing.com",
+     "item": "https://meaconing.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Meaconing vs GPS spoofing",
+     "item": "https://meaconing.com/meaconing-vs-spoofing/"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://meaconing.com/meaconing-vs-spoofing/#faq",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Is meaconing the same as GPS spoofing?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It is a type of spoofing, but a special one. Ordinary spoofing creates fake signals. Meaconing re-sends genuine ones. That is why it passes authenticity checks that can reveal ordinary spoofing."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is a replay attack the same as meaconing?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A replay attack, recording signals and playing them back later, is a form of meaconing. Meaconing also includes live relaying, where the copy is re-sent within microseconds."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is the difference between jamming and spoofing?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Jamming broadcasts noise on GNSS frequencies so receivers cannot hear satellites. Spoofing broadcasts fake GNSS signals to make a receiver report a false position or time."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which is harder to detect, spoofing or meaconing?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Meaconing. Its signals are genuine, its digital signatures are valid, and all satellites agree, so most checks designed to catch forged signals have little to grab onto."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a night-sky field guide. One reading column for beginners, widened for diagrams and tables; signal-yellow marks the echo (the attack), teal marks independent navigation. */
+:root{
+  --bg:#f4f5fa; --surface:#ffffff; --sunk:#e9ebf4; --ink:#14183a; --muted:#565b7c; --line:#d6d9ea;
+  --echo:#a14b00; --echo-fill:#f5a300; --echo-soft:#fff1d1; --safe:#0d7468; --safe-soft:#d8f1ec; --ok:#1d7a3a;
+  --band:#14183a; --band-ink:#ffc23d; --band-muted:#b9bddb;
+  --f-display:"Big Shoulders Display","Arial Narrow","Roboto Condensed",sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --t-xs:.78rem; --t-sm:.92rem; --t-md:1.06rem; --t-lg:1.4rem; --t-xl:clamp(2rem,4.4vw,3rem); --t-hero:clamp(2.4rem,5.2vw,4.3rem);
+  --r:12px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c0f2b; --surface:#141943; --sunk:#10143a; --ink:#eceefd; --muted:#a4a9cc; --line:#272d5e;
+  --echo:#ffc23d; --echo-fill:#ffc23d; --echo-soft:#33290f; --safe:#3ad6c0; --safe-soft:#123b3c; --ok:#5ad08a;
+  --band:#05071c; --band-ink:#ffc23d; --band-muted:#9da2c8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c0f2b; --surface:#141943; --sunk:#10143a; --ink:#eceefd; --muted:#a4a9cc; --line:#272d5e;
+  --echo:#ffc23d; --echo-fill:#ffc23d; --echo-soft:#33290f; --safe:#3ad6c0; --safe-soft:#123b3c; --ok:#5ad08a;
+  --band:#05071c; --band-ink:#ffc23d; --band-muted:#9da2c8; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:var(--t-md);line-height:1.62}
+a{color:var(--safe);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--echo);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1140px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:var(--f-display);line-height:1.02;text-wrap:balance;margin:0;font-weight:800;letter-spacing:.005em}
+h2{font-size:var(--t-xl);text-transform:uppercase}
+h3{font-size:var(--t-lg);font-weight:700}
+p{margin:0}
+.lede{color:var(--muted);max-width:64ch}
+.eyebrow{font-family:var(--f-mono);font-size:var(--t-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--echo)}
+.eyebrow.safe{color:var(--safe)}
+.tab{font-variant-numeric:tabular-nums}
+.sechead{display:grid;gap:14px;margin-bottom:36px;max-width:820px}
+section{padding-block:clamp(56px,8vw,96px)}
+section+section{border-top:1px solid var(--line)}
+.prose{display:grid;gap:14px;max-width:66ch}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:20px;padding-block:12px}
+.brand{font-family:var(--f-display);font-weight:800;font-size:1.35rem;letter-spacing:.02em;color:var(--ink);text-decoration:none;display:flex;gap:8px;align-items:center;white-space:nowrap}
+.navlinks{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;min-width:0;font-size:var(--t-sm)}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{color:var(--muted);text-decoration:none;white-space:nowrap}
+.navlinks a:hover{color:var(--ink)}
+
+/* hero */
+.hero{padding-block:clamp(36px,6vw,72px)}
+.hero-grid>*{min-width:0}
+.hero-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(24px,4vw,56px);align-items:start}
+.pron{font-family:var(--f-mono);font-size:var(--t-sm);color:var(--muted);margin-top:16px}
+.pron b{color:var(--ink);font-weight:500}
+.hero h1{font-size:var(--t-hero);text-transform:uppercase;margin-top:10px}
+.hero h1 span{color:var(--echo)}
+.hero .lede{margin-top:20px;font-size:1.12rem}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;font-weight:700;font-size:var(--t-sm);text-decoration:none;border:1.5px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer;font-family:var(--f-body)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+
+/* incident replay */
+.replay{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:0}
+.replay-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--sunk)}
+.replay-top b{font-family:var(--f-mono);font-size:var(--t-xs);letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.clock{font-family:var(--f-mono);font-size:var(--t-xs);color:var(--muted);font-variant-numeric:tabular-nums}
+canvas#rp{display:block;width:100%;aspect-ratio:16/9;max-width:100%}
+.ctrl{display:flex;align-items:center;gap:12px;padding:10px 14px;border-top:1px solid var(--line)}
+.ctrl button{flex:none;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--ink);background:var(--surface);color:var(--ink);cursor:pointer;display:grid;place-items:center}
+.ctrl input{flex:1;min-width:0;accent-color:var(--echo-fill)}
+.phases{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line)}
+.ph{padding:10px 12px;font-size:.8rem;color:var(--muted);border-left:1px solid var(--line);min-width:0}
+.ph:first-child{border-left:0}
+.ph b{display:block;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;margin-bottom:2px}
+.ph.on{background:var(--echo-soft);color:var(--ink)}
+.ph.on b{color:var(--echo)}
+.phase-cap{padding:12px 14px;border-top:1px solid var(--line);font-size:var(--t-sm);min-height:4.4em}
+.panels{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.pn{padding:12px 14px;min-width:0;display:grid;gap:6px;align-content:start}
+.pn+.pn{border-left:1px solid var(--line)}
+.pn .hd{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:6px;align-items:center}
+.sw{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+.pn .big{font-family:var(--f-display);font-size:1.9rem;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.checks{display:grid;gap:2px;font-size:.78rem}
+.checks div{display:flex;justify-content:space-between;gap:8px}
+.checks span:last-child{font-family:var(--f-mono);color:var(--ok);white-space:nowrap}
+.checks span.warn{color:var(--echo)}
+
+/* banner */
+.band{background:var(--band);color:var(--band-ink);padding-block:clamp(48px,8vw,88px);border:0}
+.band h2{font-size:clamp(2.6rem,8.5vw,6.4rem);line-height:.92;text-transform:uppercase;max-width:14ch}
+.band h2 em{font-style:normal;display:block;color:var(--band-muted)}
+.band-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:44px;border-top:1px solid color-mix(in srgb,var(--band-ink) 30%,transparent);padding-top:28px}
+.band-stats div{min-width:0;display:grid;gap:6px;align-content:start}
+.band-stats .n{font-family:var(--f-display);font-size:clamp(2.2rem,4.6vw,3.4rem);font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.band-stats p{color:var(--band-muted);font-size:var(--t-sm)}
+.band-stats small{font-family:var(--f-mono);font-size:.7rem;color:var(--band-muted);opacity:.8}
+
+/* basics */
+.basics{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.figure{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;overflow-x:auto}
+.figure svg{display:block;width:100%;height:auto;min-width:440px}
+.t-ink{fill:var(--ink)} .t-mut{fill:var(--muted)} .t-echo{fill:var(--echo)} .t-safe{fill:var(--safe)}
+.s-ink{stroke:var(--ink)} .s-mut{stroke:var(--muted)} .s-line{stroke:var(--line)} .s-echo{stroke:var(--echo-fill)} .s-safe{stroke:var(--safe)}
+.svgt{font-family:var(--f-mono);font-size:11px}
+.keyfacts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:36px}
+.keyfacts div{background:var(--surface);padding:18px;display:grid;gap:4px;align-content:start}
+.keyfacts b{font-family:var(--f-display);font-size:1.7rem;line-height:1;font-variant-numeric:tabular-nums}
+.keyfacts p{font-size:var(--t-sm);color:var(--muted)}
+
+/* threats overview */
+.tgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.tc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:8px;align-content:start;min-width:0}
+.tc.me{border:2px solid var(--echo-fill);background:var(--echo-soft)}
+.tc h3{font-size:1.45rem;text-transform:uppercase}
+.tc p{font-size:var(--t-sm)}
+.tc .like{color:var(--muted);font-style:italic;font-size:.86rem}
+.notice{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;display:inline-flex;gap:6px;align-items:center;color:var(--muted)}
+.notice i{width:8px;height:8px;border-radius:50%}
+.n-yes i{background:var(--ok)} .n-maybe i{background:var(--muted)} .n-no i{background:var(--echo-fill)}
+.sister{margin-top:22px;font-size:var(--t-sm);color:var(--muted)}
+
+/* deep dive */
+.part{padding-top:clamp(40px,6vw,64px);margin-top:clamp(40px,6vw,64px);border-top:1px dashed var(--line)}
+.part:first-of-type{border-top:0;margin-top:0;padding-top:0}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:start}
+.tablebox{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;font-size:var(--t-sm)}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child th,tr:last-child td{border-bottom:0}
+thead th{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--sunk)}
+tbody th{font-weight:700}
+.col-me{background:var(--echo-soft)}
+.forms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.form{border-top:3px solid var(--echo-fill);background:var(--surface);border-radius:0 0 var(--r) var(--r);padding:18px;display:grid;gap:8px;align-content:start;min-width:0;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.form h3{font-size:1.3rem}
+.form p{font-size:var(--t-sm);color:var(--muted)}
+.form .res{font-size:var(--t-sm);color:var(--ink)}
+.reasons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.reason{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:6px;min-width:0}
+.reason h3{font-size:1.2rem}
+.reason p{font-size:var(--t-sm);color:var(--muted)}
+.reason.wide{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:center}
+.reason.wide>div{display:grid;gap:6px;min-width:0}
+.mini{overflow-x:auto}
+.mini svg{display:block;width:100%;height:auto;min-width:320px}
+.timeline{list-style:none;padding:0;margin:0;display:grid;border-left:2px solid var(--line);margin-left:8px}
+.timeline li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:16px;padding:0 0 22px 22px;position:relative}
+.timeline li::before{content:"";position:absolute;left:-8px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--echo-fill)}
+.timeline li:last-child{padding-bottom:0}
+.timeline time{font-family:var(--f-mono);font-size:var(--t-xs);color:var(--echo);padding-top:2px}
+.timeline b{display:block}
+.timeline p{font-size:var(--t-sm);color:var(--muted)}
+.gs{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:10px;font-size:var(--t-sm);align-content:start}
+.gs .hd{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.gs .row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.gs .row:last-child{border-bottom:0}
+.gs .row span:last-child{font-family:var(--f-mono);color:var(--ok)}
+.gs .truth{border-radius:8px;background:var(--echo-soft);padding:10px 12px}
+.verdict{display:inline-flex;align-items:center;gap:6px;font-weight:700;white-space:nowrap}
+.verdict i{width:10px;height:10px;border-radius:50%;flex:none}
+.v-no i{background:var(--echo-fill)} .v-some i{background:var(--muted)} .v-yes i{background:var(--safe)}
+.v-no{color:var(--echo)} .v-yes{color:var(--safe)}
+.tells{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.tell{border-top:2px solid var(--ink);padding-top:12px;font-size:var(--t-sm);display:grid;gap:4px;align-content:start}
+.tell b{font-size:1rem}
+.tell p{color:var(--muted)}
+
+/* crewed vs autonomous */
+.fleet{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.fleet div{background:var(--surface);padding:16px;display:grid;gap:4px;align-content:start;min-width:0}
+.fleet b{font-family:var(--f-display);font-size:1.2rem;text-transform:uppercase}
+.fleet p{font-size:.85rem;color:var(--muted)}
+.toolkit{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:28px}
+.toolkit div{display:grid;gap:4px;align-content:start;font-size:var(--t-sm)}
+.toolkit b{font-size:1.02rem}
+.toolkit p{color:var(--muted)}
+.question{margin-block:clamp(48px,7vw,80px) 28px;font-family:var(--f-display);font-size:clamp(2.2rem,6vw,4.2rem);font-weight:800;text-transform:uppercase;line-height:.95;max-width:16ch}
+.question span{color:var(--echo)}
+.vs th:nth-child(2),.vs td:nth-child(2){width:38%}
+.vs td:nth-child(3){background:var(--echo-soft)}
+.vs thead th:nth-child(3){background:var(--echo-soft);color:var(--echo)}
+
+/* classes ladder */
+.ladder{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;align-items:end}
+.rung{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:6px;align-content:start;min-width:0}
+.rung .cls{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.rung b{font-family:var(--f-display);font-size:1.35rem;text-transform:uppercase;line-height:1}
+.rung .w{font-family:var(--f-mono);font-size:.82rem}
+.rung p{font-size:.84rem;color:var(--muted)}
+.rung .bar{height:6px;border-radius:3px;background:var(--echo-fill)}
+.cover{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:var(--t-sm);font-weight:700;color:var(--safe)}
+.cover::before{content:"";flex:1;height:10px;border-radius:5px;background:var(--safe);order:2}
+.cover span{order:1;white-space:nowrap}
+.cover em{order:3;font-style:normal;white-space:nowrap}
+
+/* navion */
+.navion{background:var(--surface)}
+.nv-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:end}
+.nv-hero h2{font-size:clamp(2.2rem,5.5vw,3.8rem)}
+.nv-hero h2 span{color:var(--safe)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tags span{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:999px;border:1px solid var(--safe);color:var(--safe)}
+.qcompare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:40px}
+.qbox{border-radius:var(--r);padding:20px;display:grid;gap:8px;align-content:start;min-width:0}
+.qbox.old{background:var(--echo-soft)}
+.qbox.new{background:var(--safe-soft)}
+.qbox .hd{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.qbox q{font-family:var(--f-display);font-size:1.7rem;font-weight:700;line-height:1.05;quotes:"“" "”"}
+.qbox p{font-size:var(--t-sm)}
+.stages{list-style:none;padding:0;margin:40px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;counter-reset:st}
+.stages li{display:grid;gap:6px;align-content:start;min-width:0;border-top:3px solid var(--safe);padding-top:12px;font-size:var(--t-sm)}
+.stages li::before{counter-increment:st;content:"Step " counter(st);font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--safe)}
+.stages b{font-family:var(--f-display);font-size:1.35rem;text-transform:uppercase}
+.stages p{color:var(--muted)}
+.refs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:40px}
+.ref{border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:4px;background:var(--bg);min-width:0}
+.ref code{font-family:var(--f-mono);font-size:.74rem;color:var(--safe);font-weight:500}
+.ref b{font-size:.98rem}
+.ref p{font-size:.84rem;color:var(--muted)}
+.ref.gn code{color:var(--echo)}
+.specs{margin-top:40px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.specs div{background:var(--bg);padding:14px 16px;display:grid;gap:2px}
+.specs span{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.specs b{font-size:1.02rem}
+.contact{margin-top:40px;display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;justify-content:space-between;padding:26px;border-radius:16px;background:var(--band);color:var(--band-ink)}
+.contact h3{font-size:1.8rem;text-transform:uppercase}
+.contact p{color:var(--band-muted);font-size:var(--t-sm);margin-top:4px}
+.mail{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mail code{font-family:var(--f-mono);font-size:var(--t-sm);padding:9px 12px;border-radius:8px;background:color-mix(in srgb,var(--band-ink) 14%,transparent);user-select:all}
+.mail button,.mail a{font-family:var(--f-body);font-size:var(--t-sm);font-weight:700;padding:9px 14px;border-radius:999px;border:1px solid var(--band-ink);cursor:pointer;text-decoration:none}
+.mail button{background:var(--band-ink);color:var(--band)}
+.mail a{background:transparent;color:var(--band-ink)}
+
+/* faq + glossary */
+.faq{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;border-top:1px solid var(--line)}
+.qa{padding-block:20px;border-bottom:1px solid var(--line);display:grid;gap:8px;min-width:0}
+.qa h3{font-family:var(--f-body);font-size:1.08rem;font-weight:700;line-height:1.3}
+.qa p{font-size:var(--t-sm);color:var(--muted)}
+.gloss{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin:0}
+.gloss div{background:var(--surface);padding:14px 16px;min-width:0}
+.gloss dt{font-weight:700}
+.gloss dt abbr{text-decoration:none;color:var(--echo);font-family:var(--f-mono);font-size:.8rem;margin-left:6px}
+.gloss dd{margin:4px 0 0;font-size:.86rem;color:var(--muted)}
+.sources ol{columns:2;column-gap:40px;font-size:.84rem;color:var(--muted);padding-left:20px;margin:0}
+.sources li{break-inside:avoid;margin-bottom:8px}
+.foot{font-size:.8rem;color:var(--muted);margin-top:12px;max-width:80ch}
+footer{padding-block:32px;font-size:.84rem;color:var(--muted);border-top:1px solid var(--line)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+
+@media (max-width:960px){
+  .hero-grid,.basics,.split,.nv-hero{grid-template-columns:1fr}
+  .tgrid,.fleet,.specs,.band-stats{grid-template-columns:1fr 1fr}
+  .forms,.refs,.toolkit,.tells{grid-template-columns:1fr 1fr}
+  .ladder{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stages{grid-template-columns:1fr 1fr}
+  .faq{grid-template-columns:1fr}
+  .gloss{grid-template-columns:1fr 1fr}
+  .reason.wide{grid-template-columns:1fr}
+  .sources ol{columns:1}
+}
+@media (max-width:600px){
+  .tgrid,.forms,.refs,.toolkit,.tells,.reasons,.qcompare,.stages,.gloss,.keyfacts{grid-template-columns:1fr}
+  .ladder{grid-template-columns:1fr 1fr}
+  .phases{grid-template-columns:1fr 1fr}
+  .ph:nth-child(3){border-left:0}
+  .ph:nth-child(n+3){border-top:1px solid var(--line)}
+  .timeline li{grid-template-columns:1fr;gap:2px}
+  .panels{grid-template-columns:1fr}
+  .pn+.pn{border-left:0;border-top:1px solid var(--line)}
+}
+
+.gcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.gcard{display:block;padding:18px 20px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);text-decoration:none;color:var(--ink)}
+.gcard:hover{border-color:var(--echo-fill)}
+.gcard b{display:block;font-family:var(--f-display);font-size:1.3rem;font-weight:700;margin-bottom:6px}
+.gcard span{font-size:var(--t-sm);color:var(--muted)}
+</style>
+
+<style>
+.crumbs{font-size:var(--t-sm);color:var(--muted);margin-bottom:18px}
+.crumbs a{color:var(--muted)}
+.art{padding-block:clamp(36px,6vw,72px)}
+.art h1{font-size:var(--t-hero);text-transform:uppercase;margin:10px 0 22px;max-width:18ch}
+.answer{border-left:4px solid var(--echo-fill);background:var(--echo-soft);padding:18px 22px;border-radius:0 var(--r) var(--r) 0;max-width:70ch;font-size:1.12rem;line-height:1.55}
+.meta{font-family:var(--f-mono);font-size:var(--t-xs);color:var(--muted);margin-top:16px;display:flex;flex-wrap:wrap;gap:6px 18px}
+.toc{margin:30px 0 0;padding:16px 20px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);max-width:66ch}
+.toc b{font-family:var(--f-mono);font-size:var(--t-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.toc ol{margin:8px 0 0;padding-left:20px;display:grid;gap:4px;font-size:var(--t-sm)}
+.body>*{max-width:66ch}
+.body>.tbl{max-width:none}
+.body h2{font-size:clamp(1.6rem,3vw,2.2rem);margin:48px 0 14px;scroll-margin-top:80px}
+.body ul,.body ol{padding-left:22px;display:grid;gap:8px}
+.body p{margin:0 0 14px}
+.tbl{overflow-x:auto;margin:18px 0 8px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.tbl table{min-width:560px}
+.tbl th,.tbl td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl th{background:var(--sunk);font-family:var(--f-mono);font-size:var(--t-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.tbl tr:last-child td{border-bottom:0}
+.faq{margin-top:56px;padding-top:8px;border-top:1px solid var(--line)}
+.faq h2{font-size:clamp(1.6rem,3vw,2.2rem);margin:32px 0 10px}
+.keep{margin-top:48px}
+.keep h2{font-size:clamp(1.4rem,2.6vw,1.9rem);margin-bottom:16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{display:block;padding:18px 20px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);text-decoration:none;color:var(--ink)}
+.card:hover{border-color:var(--echo-fill)}
+.card b{display:block;font-family:var(--f-display);font-size:1.25rem;font-weight:700;margin-bottom:4px}
+.card span{font-size:var(--t-sm);color:var(--muted)}
+.disc{margin-top:40px;padding:14px 18px;border:1px dashed var(--line);border-radius:var(--r);font-size:var(--t-sm);color:var(--muted);max-width:66ch}
+.src{margin-top:40px}
+.src h2{font-size:1.4rem;margin-bottom:12px}
+.src ol{columns:2;column-gap:40px;font-size:.84rem;color:var(--muted);padding-left:20px;margin:0}
+.src li{break-inside:avoid;margin-bottom:8px}
+@media (max-width:720px){.src ol{columns:1}}
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="Guides">
+  <div class="wrap">
+    <a class="brand" href="/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="8" cy="12" r="2.4" fill="currentColor"/><path d="M12 7.5a6 6 0 0 1 0 9M15 5a9.5 9.5 0 0 1 0 14M18 2.6a13 13 0 0 1 0 18.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>MEACONING.COM</a>
+    <div class="navlinks">
+      <a href="/what-is-meaconing/">What is meaconing?</a>
+      <a href="/meaconing-vs-spoofing/">Meaconing vs spoofing</a>
+      <a href="/history-of-meaconing/">History</a>
+      <a href="/detect-meaconing/">Detecting meaconing</a>
+      <a href="/osnma-and-meaconing/">OSNMA and meaconing</a>
+      <a href="/meaconing-and-drones/">Drones</a>
+      <a href="/about/">About</a>
+    </div>
+  </div>
+</nav>
+<main>
+<article class="art">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">meaconing.com</a> › Meaconing vs GPS spoofing</p>
+    <p class="eyebrow">Comparison · same goal, different method</p>
+    <h1>Meaconing vs GPS spoofing</h1>
+    <p class="answer"><strong>Spoofing forges, meaconing copies.</strong> A spoofer builds fake satellite signals from scratch. A meaconer re-sends real ones. Meaconing is a special type of spoofing, and it is harder to catch because the messages, codes and digital signatures are all genuine.</p>
+    <p class="meta"><span>By the meaconing.com editorial team</span><span>Last reviewed <time datetime="2026-10-07">7 October 2026</time></span></p>
+    <nav class="toc" aria-label="On this page"><b>On this page</b><ol><li><a href="#spoofing-forges-meaconing-copies">Spoofing forges. Meaconing copies.</a></li><li><a href="#side-by-side-comparison">Side-by-side comparison</a></li><li><a href="#where-jamming-fits">Where jamming fits</a></li><li><a href="#eight-things-that-break-satellite-navigation">Eight things that break satellite navigation</a></li></ol></nav>
+    <div class="body">
+<h2 id="spoofing-forges-meaconing-copies">Spoofing forges. Meaconing copies.</h2>
+<p>A spoofer has to build fake satellite signals from scratch. That takes skill, and the result can contain small mistakes that a careful receiver might catch.</p>
+<p>A meaconer doesn't make anything up. It listens to the real satellites with one antenna and re-transmits what it hears from another, a little louder. The only false part is <strong>where and when</strong> the signal is coming from. A receiver locked onto the copy computes the position of the attacker's listening antenna, not its own.</p>
+<h2 id="side-by-side-comparison">Side-by-side comparison</h2>
+<div class="tbl"><table><thead><tr><th scope="col">What the receiver gets</th><th scope="col">Real sky</th><th scope="col">Spoofing</th><th scope="col">Meaconing</th></tr></thead><tbody><tr><td>Signal origin</td><td>Satellites</td><td>Attacker's generator</td><td>Satellites, re-sent by attacker</td></tr><tr><td>Message content</td><td>Genuine</td><td>Forged</td><td>Genuine</td></tr><tr><td>Digital signature</td><td>Valid</td><td>Fails, if checked</td><td>Valid</td></tr><tr><td>Satellites agree?</td><td>Yes</td><td>Usually</td><td>Yes</td></tr><tr><td>Position computed</td><td>Your own</td><td>Attacker's choice</td><td>Attacker's antenna</td></tr><tr><td>Skill needed</td><td>None</td><td>High</td><td>Low to moderate</td></tr></tbody></table></div>
+<h2 id="where-jamming-fits">Where jamming fits</h2>
+<p>Jamming is different from both. A jammer blasts noise on GNSS frequencies so the receiver hears nothing at all. You notice jamming, because the receiver has nothing to work with. Spoofing and meaconing are harder to notice, because the receiver keeps working and reports a wrong position.</p>
+<h2 id="eight-things-that-break-satellite-navigation">Eight things that break satellite navigation</h2>
+<div class="tbl"><table><thead><tr><th scope="col">Threat</th><th scope="col">What happens</th><th scope="col">Would you notice?</th></tr></thead><tbody><tr><td>Jamming</td><td>A transmitter blasts noise so the receiver hears nothing.</td><td>You notice</td></tr><tr><td>Spoofing</td><td>A transmitter fakes satellite signals and gradually walks the receiver to a false position or time.</td><td>Hard to notice</td></tr><tr><td>Meaconing</td><td>An attacker records real signals and replays them. The content is genuine, so it passes authenticity checks.</td><td>Hardest to notice</td></tr><tr><td>Blockage</td><td>Tunnels, buildings, forests and roofs cut the line of sight to the satellites.</td><td>You notice</td></tr><tr><td>Multipath</td><td>Signals bounce off glass and concrete, so the receiver measures the wrong distances.</td><td>Sometimes</td></tr><tr><td>Space weather</td><td>Solar storms disturb the upper atmosphere and make signals flicker or fade.</td><td>Sometimes</td></tr><tr><td>System faults</td><td>The satellite systems themselves can fail. Galileo's public service was down for about six days in July 2019.</td><td>Sometimes</td></tr><tr><td>Accidental interference</td><td>Faulty electronics and illegal in-vehicle "privacy jammers" leak noise onto GNSS bands.</td><td>Sometimes</td></tr></tbody></table></div>
+<p>For incident data covering every GNSS threat, see the sister site <a href="https://gnssdenial.com">gnssdenial.com</a>.</p>
+    </div>
+    <section class="faq" aria-labelledby="h-faq"><h2 id="h-faq">Quick answers</h2><article class="qa"><h3>Is meaconing the same as GPS spoofing?</h3><p>It is a type of spoofing, but a special one. Ordinary spoofing creates fake signals. Meaconing re-sends genuine ones. That is why it passes authenticity checks that can reveal ordinary spoofing.</p></article><article class="qa"><h3>Is a replay attack the same as meaconing?</h3><p>A replay attack, recording signals and playing them back later, is a form of meaconing. Meaconing also includes live relaying, where the copy is re-sent within microseconds.</p></article><article class="qa"><h3>What is the difference between jamming and spoofing?</h3><p>Jamming broadcasts noise on GNSS frequencies so receivers cannot hear satellites. Spoofing broadcasts fake GNSS signals to make a receiver report a false position or time.</p></article><article class="qa"><h3>Which is harder to detect, spoofing or meaconing?</h3><p>Meaconing. Its signals are genuine, its digital signatures are valid, and all satellites agree, so most checks designed to catch forged signals have little to grab onto.</p></article></section>
+    <section class="keep" aria-labelledby="h-keep"><h2 id="h-keep">Keep reading</h2><div class="cards"><a class="card" href="/what-is-meaconing/"><b>What is meaconing?</b><span>the definition</span></a><a class="card" href="/osnma-and-meaconing/"><b>Does OSNMA stop meaconing?</b><span>necessary, not sufficient</span></a><a class="card" href="/detect-meaconing/"><b>Detecting meaconing in real time</b><span>why it's so hard</span></a><a class="card" href="/"><b>The full explainer</b><span>Interactive incident replay and the complete page</span></a></div></section><section class="src" aria-labelledby="h-src"><h2 id="h-src">Sources</h2><ol><li><a href="https://www.sbg-systems.com/glossary/meaconing/" target="_blank" rel="noopener">SBG Systems, Meaconing glossary</a></li><li><a href="https://insidegnss.com/osnma-necessary-but-not-sufficient-for-gnss-security/" target="_blank" rel="noopener">Inside GNSS, OSNMA: necessary but not sufficient</a></li><li><a href="https://arxiv.org/pdf/2202.11341" target="_blank" rel="noopener">arXiv, Distributed and mobile message-level relaying of GNSS signals</a></li><li><a href="https://ic.iata.org/sites/default/files/iata_sih_document_attachment/IATA%20Safety%20Risk%20Assessment%20-%20GNSS%20Interference%20V5.pdf" target="_blank" rel="noopener">IATA, Safety risk assessment: GNSS interference</a></li><li><a href="https://ops.group/dashboard/wp-content/uploads/2024/09/GPS-Spoofing-Final-Report-OPSGROUP-WG-OG24.pdf" target="_blank" rel="noopener">OPSGROUP, GPS Spoofing Workgroup Final Report (2024)</a></li></ol></section><p class="disc">Disclosure: this site features Navion Terra by Ultrakinematic. <a href="/about/">About this site and its sources</a>.</p>
+  </div>
+</article>
+</main>
+<footer>
+  <div class="wrap">
+    <span>meaconing.com · Meaconing explained for everyone · Sister site: <a href="https://gnssdenial.com">gnssdenial.com</a></span>
+    <span>Navion Terra is a product of Ultrakinematic. <a href="/about/">About</a></span>
+  </div>
+</footer>
+</body>
+</html>

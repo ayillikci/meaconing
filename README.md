@@ -2,13 +2,16 @@
 
 meaconing.com is a standalone site focused on meaconing, written for readers with no prior knowledge. Its sister site gnssdenial.com covers all GNSS threats with full data. The two sites link to each other and use different text, so search engines treat them as two separate, related resources rather than duplicates.
 
-Upload every file in this folder to the **root** of meaconing.com. Any static host works.
+Upload every file **and folder** in this directory to the **root** of meaconing.com, keeping the folder structure. Any static host works.
 
 ## Files
 
 | File | Purpose |
 |---|---|
 | `index.html` | The site, with title, description, canonical URL, Open Graph and X/Twitter tags, and JSON-LD (WebSite, TechArticle, FAQPage, DefinedTermSet glossary, Product for Navion Terra). All text is in the HTML. |
+| `what-is-meaconing/`, `meaconing-vs-spoofing/`, `history-of-meaconing/`, `detect-meaconing/`, `osnma-and-meaconing/`, `meaconing-and-drones/`, `about/` | One page per question, each with its own title, canonical URL, JSON-LD (TechArticle, FAQPage, BreadcrumbList, entity links to Wikipedia and Wikidata) and a visible "last reviewed" date. `about/` carries authorship, sourcing and the Navion Terra / Ultrakinematic disclosure. |
+| `<slug>.md` (for example `what-is-meaconing.md`) | Markdown copy of each guide for AI assistants, linked from the page with `rel="alternate"`. |
+| `0fcfd9ccd586edc4438c78cc74876257.txt` | IndexNow key file. Keep it at the root so Bing and other IndexNow engines can verify ownership. |
 | `robots.txt` | Allows all search engines and explicitly allows AI crawlers. Points to the sitemap. |
 | `sitemap.xml` | Page and LLM text files with dates. |
 | `llms.txt`, `llms-full.txt` | Site summary and the full page as Markdown, for AI assistants. |
@@ -26,7 +29,7 @@ Upload every file in this folder to the **root** of meaconing.com. Any static ho
 ## Keeping the two sites healthy
 
 - Keep the content different. meaconing.com goes deep on one attack for beginners; gnssdenial.com is the broad, data-heavy overview. Don't copy sections between them.
-- When you update figures, change the dates in `index.html` (`dateModified`, `article:modified_time`, "Page last reviewed"), `sitemap.xml` and `llms-full.txt`.
+- When you update figures, change the dates in `index.html` (`dateModified`, `article:modified_time`, "Page last reviewed"), `sitemap.xml` and `llms-full.txt`. The same applies to each guide page: its `dateModified`, `article:modified_time`, visible "Last reviewed" date and the matching `.md` copy. Keep the guides consistent with the home page, and keep figures that describe GNSS interference in general labelled as such.
 - Links from relevant outside sites help most. Ask Ultrakinematic to link to both domains.
 
 ## Hosting on Cloudflare (Workers static assets)

@@ -22,7 +22,7 @@
 <meta property="og:image:alt" content="Satellite navigation is under attack. Every day. Meaconing explained at meaconing.com">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-10-06">
-<meta property="article:modified_time" content="2026-10-06">
+<meta property="article:modified_time" content="2026-10-07">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Meaconing explained: when your navigation hears an echo and believes it">
 <meta name="twitter:description" content="Meaconing explained from zero: how GNSS signals are captured and replayed, why replay attacks pass authentication and integrity checks, how crewed aircraft cope, and how drones up to MALE class stay on course with Navion Terra.">
@@ -56,7 +56,13 @@
    "logo": "https://meaconing.com/icon-512.png",
    "sameAs": [
     "https://gnssdenial.com/"
-   ]
+   ],
+   "description": "Educational site explaining meaconing, the replay of genuine GNSS signals, for readers with no prior knowledge.",
+   "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "editorial",
+    "email": "contact@meaconing.com"
+   }
   },
   {
    "@type": "TechArticle",
@@ -68,7 +74,7 @@
    "mainEntityOfPage": "https://meaconing.com/",
    "inLanguage": "en",
    "datePublished": "2026-10-06",
-   "dateModified": "2026-10-06",
+   "dateModified": "2026-10-07",
    "image": "https://meaconing.com/og-image.png",
    "author": {
     "@id": "https://meaconing.com/#org"
@@ -90,6 +96,22 @@
     },
     {
      "@id": "https://meaconing.com/#term-spoofing"
+    },
+    {
+     "@type": "Thing",
+     "name": "Meaconing",
+     "sameAs": [
+      "https://en.wikipedia.org/wiki/Meaconing",
+      "https://www.wikidata.org/wiki/Q6803124"
+     ]
+    },
+    {
+     "@type": "Thing",
+     "name": "Satellite navigation (GNSS)",
+     "sameAs": [
+      "https://en.wikipedia.org/wiki/Satellite_navigation",
+      "https://www.wikidata.org/wiki/Q179435"
+     ]
     }
    ],
    "mentions": [
@@ -98,7 +120,14 @@
     }
    ],
    "relatedLink": [
-    "https://gnssdenial.com/"
+    "https://gnssdenial.com/",
+    "https://meaconing.com/what-is-meaconing/",
+    "https://meaconing.com/meaconing-vs-spoofing/",
+    "https://meaconing.com/history-of-meaconing/",
+    "https://meaconing.com/detect-meaconing/",
+    "https://meaconing.com/osnma-and-meaconing/",
+    "https://meaconing.com/meaconing-and-drones/",
+    "https://meaconing.com/about/"
    ],
    "citation": [
     "https://ops.group/dashboard/wp-content/uploads/2024/09/GPS-Spoofing-Final-Report-OPSGROUP-WG-OG24.pdf",
@@ -116,6 +145,44 @@
     "https://www.sbg-systems.com/glossary/meaconing/",
     "https://ultrakinematic.com",
     "https://gnssdenial.com"
+   ],
+   "hasPart": [
+    {
+     "@type": "TechArticle",
+     "@id": "https://meaconing.com/what-is-meaconing/#article",
+     "name": "What is meaconing?",
+     "url": "https://meaconing.com/what-is-meaconing/"
+    },
+    {
+     "@type": "TechArticle",
+     "@id": "https://meaconing.com/meaconing-vs-spoofing/#article",
+     "name": "Meaconing vs GPS spoofing",
+     "url": "https://meaconing.com/meaconing-vs-spoofing/"
+    },
+    {
+     "@type": "TechArticle",
+     "@id": "https://meaconing.com/history-of-meaconing/#article",
+     "name": "The history of meaconing",
+     "url": "https://meaconing.com/history-of-meaconing/"
+    },
+    {
+     "@type": "TechArticle",
+     "@id": "https://meaconing.com/detect-meaconing/#article",
+     "name": "Detecting meaconing in real time",
+     "url": "https://meaconing.com/detect-meaconing/"
+    },
+    {
+     "@type": "TechArticle",
+     "@id": "https://meaconing.com/osnma-and-meaconing/#article",
+     "name": "Does OSNMA stop meaconing?",
+     "url": "https://meaconing.com/osnma-and-meaconing/"
+    },
+    {
+     "@type": "TechArticle",
+     "@id": "https://meaconing.com/meaconing-and-drones/#article",
+     "name": "Meaconing and drones",
+     "url": "https://meaconing.com/meaconing-and-drones/"
+    }
    ]
   },
   {
@@ -231,7 +298,11 @@
      "name": "Global Navigation Satellite System",
      "description": "The family of satellite navigation systems: GPS, Galileo, GLONASS and BeiDou.",
      "inDefinedTermSet": "https://meaconing.com/#glossary",
-     "termCode": "GNSS"
+     "termCode": "GNSS",
+     "sameAs": [
+      "https://en.wikipedia.org/wiki/Satellite_navigation",
+      "https://www.wikidata.org/wiki/Q179435"
+     ]
     },
     {
      "@type": "DefinedTerm",
@@ -252,7 +323,11 @@
      "@id": "https://meaconing.com/#term-meaconing",
      "name": "Meaconing",
      "description": "Capturing genuine GNSS signals and re-broadcasting them to mislead receivers.",
-     "inDefinedTermSet": "https://meaconing.com/#glossary"
+     "inDefinedTermSet": "https://meaconing.com/#glossary",
+     "sameAs": [
+      "https://en.wikipedia.org/wiki/Meaconing",
+      "https://www.wikidata.org/wiki/Q6803124"
+     ]
     },
     {
      "@type": "DefinedTerm",
@@ -266,14 +341,22 @@
      "@id": "https://meaconing.com/#term-replay-attack",
      "name": "Replay attack",
      "description": "Recording signals and playing them back later. A form of meaconing.",
-     "inDefinedTermSet": "https://meaconing.com/#glossary"
+     "inDefinedTermSet": "https://meaconing.com/#glossary",
+     "sameAs": [
+      "https://en.wikipedia.org/wiki/Replay_attack",
+      "https://www.wikidata.org/wiki/Q1756025"
+     ]
     },
     {
      "@type": "DefinedTerm",
      "@id": "https://meaconing.com/#term-spoofing",
      "name": "Spoofing",
      "description": "Broadcasting fake GNSS signals to make a receiver report a false position or time.",
-     "inDefinedTermSet": "https://meaconing.com/#glossary"
+     "inDefinedTermSet": "https://meaconing.com/#glossary",
+     "sameAs": [
+      "https://en.wikipedia.org/wiki/GNSS_spoofing",
+      "https://www.wikidata.org/wiki/Q1486517"
+     ]
     },
     {
      "@type": "DefinedTerm",
@@ -296,7 +379,11 @@
      "name": "Receiver Autonomous Integrity Monitoring",
      "description": "A receiver check that spots one satellite disagreeing with the others.",
      "inDefinedTermSet": "https://meaconing.com/#glossary",
-     "termCode": "RAIM"
+     "termCode": "RAIM",
+     "sameAs": [
+      "https://en.wikipedia.org/wiki/Receiver_autonomous_integrity_monitoring",
+      "https://www.wikidata.org/wiki/Q2135146"
+     ]
     },
     {
      "@type": "DefinedTerm",
@@ -690,6 +777,12 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
   .panels{grid-template-columns:1fr}
   .pn+.pn{border-left:0;border-top:1px solid var(--line)}
 }
+
+.gcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.gcard{display:block;padding:18px 20px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);text-decoration:none;color:var(--ink)}
+.gcard:hover{border-color:var(--echo-fill)}
+.gcard b{display:block;font-family:var(--f-display);font-size:1.3rem;font-weight:700;margin-bottom:6px}
+.gcard span{font-size:var(--t-sm);color:var(--muted)}
 </style>
 </head>
 <body>
@@ -703,6 +796,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
       <a href="#detection">Why it's hard to detect</a>
       <a href="#autonomy">Crewed vs autonomous</a>
       <a href="#navion">Navion Terra</a>
+      <a href="#guides">Guides</a>
       <a href="#faq">FAQ</a>
       <a href="#glossary">Glossary</a>
     </div>
@@ -1126,6 +1220,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
   </div>
 </section>
 
+<section id="guides" aria-labelledby="h-guides">
+  <div class="wrap">
+    <div class="sechead"><p class="eyebrow">Guides · one question per page</p><h2 id="h-guides">Go deeper, one question at a time</h2></div>
+    <div class="gcards"><a class="gcard" href="/what-is-meaconing/"><b>What is meaconing?</b><span>Meaconing is capturing genuine satellite navigation (GNSS) signals and re-broadcasting them from another place or time. A receiver that…</span></a><a class="gcard" href="/meaconing-vs-spoofing/"><b>Meaconing vs GPS spoofing</b><span>Spoofing forges, meaconing copies. A spoofer builds fake satellite signals from scratch. A meaconer re-sends real ones. Meaconing is a…</span></a><a class="gcard" href="/history-of-meaconing/"><b>The history of meaconing</b><span>Meaconing began in the Second World War. In 1940-41 the Royal Air Force's No. 80 (Signals) Wing used "masking beacons", or meacons, to pick…</span></a><a class="gcard" href="/detect-meaconing/"><b>Detecting meaconing in real time</b><span>Meaconing is very hard to detect in real time with GNSS checks alone, because the signals are genuine and consistent. The reliable method…</span></a><a class="gcard" href="/osnma-and-meaconing/"><b>Does OSNMA stop meaconing?</b><span>No. OSNMA proves a navigation message came from a real satellite. A replayed message did come from a real satellite, so its signature is…</span></a><a class="gcard" href="/meaconing-and-drones/"><b>Meaconing and drones</b><span>Drones are more exposed than airliners. They have no one on board, most rely on GNSS as their only absolute position, and their autopilots…</span></a></div>
+    <p class="foot" style="margin-top:20px;color:var(--muted);font-size:var(--t-sm)">About this site, its sources and disclosures: <a href="/about/">meaconing.com/about</a>.</p>
+  </div>
+</section>
+
 <section id="faq" aria-labelledby="h-faq">
   <div class="wrap">
     <div class="sechead"><p class="eyebrow">Frequently asked questions</p><h2 id="h-faq">Meaconing questions, plainly answered</h2></div>
@@ -1166,7 +1268,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
       <div><dt>Medium Altitude Long Endurance<abbr>MALE</abbr></dt><dd>Large uncrewed aircraft flying at medium altitude for a day or more. NATO Class III.</dd></div>
       <div><dt>Return-to-home<abbr>RTH</abbr></dt><dd>A drone failsafe that flies back to the launch point, usually guided by GNSS.</dd></div>
     </dl>
-    <p class="foot">Page last reviewed <time datetime="2026-10-06">6 October 2026</time>.</p>
+    <p class="foot">Page last reviewed <time datetime="2026-10-07">7 October 2026</time>.</p>
   </div>
 </section>
 
@@ -1197,7 +1299,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
 <footer>
   <div class="wrap">
     <span>meaconing.com · Meaconing explained for everyone · Sister site: <a href="https://gnssdenial.com">gnssdenial.com</a></span>
-    <span>Navion Terra is a product of Ultrakinematic.</span>
+    <span>Navion Terra is a product of Ultrakinematic. <a href="/about/">About</a></span>
   </div>
 </footer>
 

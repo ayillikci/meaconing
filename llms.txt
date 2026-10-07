@@ -25,6 +25,16 @@ Key facts:
 - [FAQ](https://meaconing.com/#faq)
 - [Glossary](https://meaconing.com/#glossary)
 
+## Guides (one question per page, each also available as Markdown at the same address with a .md ending)
+
+- [What is meaconing?](https://meaconing.com/what-is-meaconing/): Meaconing is capturing genuine GNSS (GPS) signals and re-broadcasting them so a receiver computes the wrong position. What it is, how it works and why every check says the fix is valid.
+- [Meaconing vs GPS spoofing](https://meaconing.com/meaconing-vs-spoofing/): Spoofing forges fake GNSS signals; meaconing replays genuine ones. A side-by-side comparison of meaconing, spoofing and jamming, and why meaconing passes authentication checks.
+- [The history of meaconing](https://meaconing.com/history-of-meaconing/): Meaconing began in 1940-41 when the RAF's No. 80 (Signals) Wing re-radiated German navigation beacons. How the word came about and how the same trick targets GPS today.
+- [Detecting meaconing in real time](https://meaconing.com/detect-meaconing/): Why meaconing is so hard to detect as it happens: an illustrative incident second by second, which GNSS checks work and fail, and the tell-tale signs operators can watch for.
+- [Does OSNMA stop meaconing?](https://meaconing.com/osnma-and-meaconing/): OSNMA proves a message came from a real satellite, and a replayed message did. Why signal authentication and RAIM integrity checks do not stop meaconing, and what does.
+- [Meaconing and drones](https://meaconing.com/meaconing-and-drones/): Why drones from micro to MALE class are more exposed to meaconing than crewed aircraft, what airliners have that drones lack, and how operators can protect against it.
+- [About meaconing.com](https://meaconing.com/about/): Purpose, sources, disclosures and contact
+
 ## Optional
 
 - [gnssdenial.com](https://gnssdenial.com/): Sister site with the full GNSS denial overview, statistics and incident timeline
